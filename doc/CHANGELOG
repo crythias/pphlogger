@@ -1,0 +1,581 @@
+-----------------------
+PowerPhlogger CHANGELOG
+-----------------------
+
+$Id: CHANGELOG,v 1.116 2003/10/31 17:35:46 cvs_iezzi Exp $
+
+PowerPhlogger 3.0
+------------------------------------------------------------------------
+PPhlogger3 is still in development. It is going to be a complete rewrite
+of the existing PPhlogger 2.x code base. First preview releases are
+expected by April 2004.
+
+Project information is available on:
+http://www.phpee.com/pphlogger3-dev/
+
+PowerPhlogger 2.2.5                                             10-31-03
+------------------------------------------------------------------------
+[[[ new features ]]]
++ added type 'all' to showhits.php to show all information (by Niko)
+
+[[[ changes/fixes ]]]
+- fixed security exploit in showhits.php (reported by Dmytro Bogatskyy)
+- fixed security exploit in get_userdata.php, dspSignup.php
+  (reported by Dmytro Bogatskyy)
+- changed $tbl_* variables to constants
+- fixed CSS problems (reported by Alexander Schwethelm)
+- strip input text in showhits.php and dlcount.php
+  (reported by Silvio Schneider)
+- avoid multiple calls to session_start(). As of PHP 4.3.3 this throws
+  an error of level E_NOTICE.
+- fixed broken image problem with uppercase TLDs (reported by Reinhard)
+
+PowerPhlogger 2.2.4                                             06-19-03
+------------------------------------------------------------------------
+[[[ new features ]]]
++ URL handling: short query strings can now be specified in a "OPT-OUT"
+  way by using e.g. "* -q -sessid"
++ added Japanese language files by Haruki Setoyama
+
+[[[ changes/fixes ]]]
+- updated German language files by Jürgen Wöbcke
+- updated Italian language files by Ganodesign
+- updated Swedish language files by Mattias Pettersson
+- updated Polish language files by mIRC.pl
+- now encoding email address in footer to prevent spam bots
+- added Konqueror 3(.0) browser detection to yabd.inc.php (by Boegli)
+- fix for buggy ereg handling in PHP 4.0.4, functions.lib.php: getHEX()
+  (by Nick)
+- removed plug-ins from the /admin/plugins directory (deprecated)
+- fixed security exploit (credits to Lucian Kafka, www.conexim.com.au)
+
+PowerPhlogger 2.2.3                                             10-02-02
+------------------------------------------------------------------------
+[[[ new features ]]]
++ added local traceroute script (/actions/trace.php)
++ added Ukranian search-engines (by MDG)
++ admin maintenance: New "force deletion" to force the deletion of old 
+  logs/visitor paths according to the settings dellog_lim/delpath_lim
+
+[[[ changes/fixes ]]]
+- pphl_xxxxx_ipcheck tables are deprecated and have been removed
+  now using pphl_xxxxx_logs instead
+- improving speed by adding INDEX's to pphl_xxxxx_logs
+- trackPath() -> getNewPath(), combining two UPDATE's to a single one
+- changed default traceroute path from above.net to getnet.com
+  (If this setting is kept empty, PPhlogger will use local traceoutes)
+- loglist: open external links in new window (target="_blank")
+- added Earthlink, AT&T to engines-list.ini
+- updated htmlMimeMail class from 2.0.3 to 2.5.1
+- plain email mode in setup.php, step 2 - This will prevent the 
+  attachment of pphlogger.js in the confirmation email.
+- fixed ValidEmail() in libmail.mod.php, now works with TLDs like .info
+- slightly improved XHTML compliance
+- updated Dutch language files by Rob den Toom
+- rewrite of /include/delLogs.inc.php, now using LogsCleanUp class
+- added PPHL_DB_LOCK constant for easy database locking during upgrades
+- using constants for DB configuration
+- added setting PPHL_DB_PORT, PPHL_DB_PERSISTENT to config.inc.php
+
+PowerPhlogger 2.2.2b                                            07-19-02
+------------------------------------------------------------------------
+[[[ new features ]]]
++ added Russian search-engines (by SeazoN)
+
+[[[ fixes ]]]
+- fixed problems with MP-list, multi-page logging
+- using constant PPHL_SCRIPT_PATH instead of $rel_path
+- fixed problem where screen resolution was 'undefined'
+- updated French language file (fr.inc.php) by Eric Blas
+- added hour component for online times
+- calTableSize() now also works with InnoDB (MySQL-Max)
+- workaround for cookies in IIS no longer necessary since IIS 5.1
+- workaround for UTF-8 encoding in query-strings
+- added detection of Netscape7/Mozilla 1.x in yabd.lib.php
+- fixed display problems with NS 4.7x
+
+
+PowerPhlogger 2.2.2a                                            04-30-02
+------------------------------------------------------------------------
+[[[ new features ]]]
++ new CSS: tierwaisen (by Erik)
+
+[[[ fixes ]]]
+- fixed visitors-per-hour view, 'today' should now work
+- great speed-up for visitors-per-hour
+- optimized upd_2.2.1-2.2.2.php
+- full browser/OS-strings in dspBrowserOs.php
+- faster table-size calculation in edSettings.php
+- fixed loglist-search for resolution
+- changed disposition to "attachment" instead of "inline" in libmail
+- more efficient calcTableSize(): no more exhausted memory limit errors
+  in admin2's [calc table size]
+- fixed problems with indexes in ISAM-tables (mySQL 3.22.xx) in 
+  pphl_xxxxx_logs, pphl_xxxxx_mpdl, and pphl_agents
+- various other fixes for ISAM-tables
+- fixed endless-loop problems in mySQL 3.22.xx, where LAST_INSERT_ID()
+  was used in tables with an AUTO_INCREMENT row (pphl_xxxxx_mpdl)
+- hiding tblsize in admin2 + admin5 if mySQL < 3.23.03
+- reload-link in admin5.php instead of cached table size calculation
+- corrections in se.inc.php (by Mattias Pettersson)
+- fixed date in from... to... in dspLogs.php (User-time instead of GMT)
+- major security patch !! (now using constants for include-files)
+
+PowerPhlogger 2.2.2                                             04-14-02
+------------------------------------------------------------------------
+[[[ new features ]]]
++ multiple log deletion (checkboxes)
++ visitors per hour graph
++ unite downloads with the same filename
++ referer blocking
++ new CSS: doggy (by Sandra), caits & iceage (by Carsten)
+  xt-design (by Moritz Donhauser, xt-design.de)
++ added colorpages 21-40 by Gabi
++ possibility to OPTIMIZE usr/adm tables
++ updated FAQ section in doc.html (/docs/FAQ does no longer exist)
++ added Italian search engines by Marco Chiesi and Gano
++ rewrite of pphlogger.js, now autodetects frameset
++ simpler md5-login (JS), updated /include/md5.js
++ added more search-engines (by Kalvin)
++ set CSS directly in CSS-editor
++ added language localizations:
+  Danish by Jan <support@gullestrupnet.dk>
+  Latvian by Ansis Ataols Bçrziòð <ataols@latnet.lv>
++ better mpdl-editor, now supporting multiple mpdl deletion
++ better timezone support (all timezones, language localized)
++ rewrite of setup.php: user-friendly, language support
++ own referrer blocking
+
+[[[ changes/fixes ]]]
+- better performance for stats and admin2 (added index for mpdl- and
+  users-table) by Carsten
+- workaround for dumb users who use their redir-URL instead of the 
+  correct one in their URL-list
+- fixed pphlogger.js bug, where title didn't get escaped
+- fixed domain table for Turkish/Greek language
+- changed visitor paths default to On
+- it's now easier to change file extensions (see FAQ in doc.html)
+- fixed calcTableSize() problem with table prefixes
+- fixed some addslashes()/urldecode() problems
+- fixed bug in last X referrers list
+- hide signup page if signup_ok = false
+- fix for servers where HTTP_ADDR is not set, using HTTP_HOST
+- fixed GMT timestamp problems in calendar (changing of month)
+- fix in yabd.lib.php, where browser-string was not found in $arr_brows
+- calendar data now gets stored as serialized data in the cache-table
+- mysql_close() now in register_shutdown_function to keep connection
+  open for further use in showhits.php if st='php'
+- drop visible_style (deprecated) in pphlogger_users table
+- ENUM --> TINYINT conversation
+  in PPhlogger3 we're going to use the more standardized TINYINT instead
+  of ENUM. TINYINT(1) is used as a BOOL in this context.
+- new logid format: now using AUTO_INCREMENT instead of PHP's uniqid()
+  more reliable and uses less space VARCHAR(13) --> INT
+- fixed some login problems
+- moved all agent-strings to new table pphlogger_agents
+  agent now stored as ID to save database size
+- entrypoint/path now stored as ID (entryid INT UNSIGNED, path TEXT)
+- mp's no longer get stored as full URLs! They all get cut down using
+  the rulesets defined in short-query/index settings - better pureURL()
+- CSS now stored as IDs
+- xxxxx_logs: res VARCHAR(9) --> res_w INT, res_h INT
+- new default table prefix 'pphl_', added /upgrade/prefix_change.php
+- fixed problem that occurred with multiple emails in userprofile
+- moved all desc_xx in pphl_domains to new lang-files (xx_tld.inc.php)
+
+
+PowerPhlogger 2.2.1                                             01-06-02
+------------------------------------------------------------------------
+[[[ new features ]]]
++ extended CSS capabilities (color_1t, color_1a,...)
++ added winamp and gentoo CSS (gentoo.org style)
++ added libmail (HTML mime mail is no longer default)
++ ability to use counter images without Freetype support using GD's 
+  built-in fonts.
++ better gd image support detection for PHP >= 4.0.2
++ validating code against XHTML 1.0 standards
++ check for username syntax
+
+[[[ fixes ]]]
+- fixed /admin/delete_user.php (register_globals = Off)
+- fixed problems with prefixes in tables
+- more secure login-form
+- using onSubmit() instead of onClick() for login-form (now also works
+  with NS6)
+- admin1: fixed redirection when trying to delete a non-existing user
+- updated Swedish language file (se.inc.php) by Mattias Pettersson
+- updated Polish language file (pl.inc.php) by Wojciech Dorosz
+
+
+PowerPhlogger 2.2.0                                             12-24-01
+------------------------------------------------------------------------
+[[[ new features ]]]
++ asc/desc order in admin2
++ ability to log document titles by Carsten Albrecht <albrecht@caits.de>
++ added Greek language localization by Takis <ingraf@aias.gr>
++ added German documentation doc_de.html
++ new css: mmstyle
++ caching of tables in dspStats.php
++ database table size view (in edSettings.php and admin2.php)
+
+[[[ fixes ]]]
+- moved all count() functions out of loops (minor speed increase)
+- updated Italian language files by Luca Mercuri <mer@libero.it>
+- added DOCTYPE tag
+- PRIMARY KEY in xxxxx_mpdl now spans over type,url
+- better htmlStatTable(), fixes problems in dspStats.php
+- fixed plug-ins (admin5)
+- class.html.mime.mail updated from 2.0.2 to 2.0.3
+- adding http:// where user didn't specify it
+- md5 encryption for login-form: default is again off (you can change
+  this in setup.php, step 3)
+
+
+PowerPhlogger 2.2.0-RC2                                         12-02-01
+------------------------------------------------------------------------
+[[[ new features ]]]
++ user can set index.* files to be treated the same as /
++ URL handling: short query strings (user can specify if whole/part of 
+   the query string gets stripped off the URL)
++ yesterday's hits in showhits.php
++ rewrite of admin userprofile list (can now be limited and sorted)
++ PrevNext bar [ prev 1 2 3 ... next ] in admin userprofile list
++ added Polish language localization by Wojciech <wojtek@serwisy.net>
++ 'loopback_bug' setting for f2s users
++ country flag images in top domain list
++ time-period view for browser/OS
++ last X referrers (full-URL list)
++ complete rewrite of the mailing list feature (now with preview)
+
+[[[ fixes ]]]
+- fixed calendar image (was not able to display previous months)
+- fixed start_date in email notifications, now in county specific format
+- fixed serious bug when dellog_lim_d was enabled
+- fixed GMT timestamp problems in calendar and loglist
+- better 'real IP' detection
+- users didn't get logged in admin3
+- more efficient log-deletion
+- security fix in db_dump.php
+- fixed all upgrade scripts. Now ready to upgrade from any version 
+  to 2.2.0-RC2
+
+
+PowerPhlogger 2.2.0-RC1                                         11-18-01
+------------------------------------------------------------------------
+[[[ new features ]]]
++ secure login using PHP4's session managment in combination with 
+  encrypted password (JS)
++ dynamic CSS generation. new CSS editor that allows to create user-
+  defined styles
++ visitor's navigation path
++ proxy and "real" IP detection
++ better engines-list.ini parsing
+  (allow different search query identifiers)
++ PrevNext bar [ prev 1 2 3 ... next ] for loglist and admin3
++ show_vis_per_day.php is now able to show current data if included on 
+  your own page
++ removed necessity of register_globals and added grab_globals.lib.php
+  (this may solve some people's login-problems)
++ language support for domain-list
+  (currently en, de, cn, cnb, pl, nl, fr, es)
++ removed diskspace / upload features in admin4
++ added new css: metal
++ all dates are now stored in GMT
++ now supports full URLs in usersettings
+  (works now also with https://...)
+
+[[[ fixes ]]]
+- faster log deletion if you limit by number of logs
+- charset is now set with header() instead of meta-tag
+- htmlentities() of agent-information
+- pphlogger.php, problem occured when magic_quotes_gpc was disabled 
+  and agent contained quotes
+- pphlogger_send now also works on win32
+- class.html.mime.mail updated from 1.34 to 2.0.2
+- using trim() to strip whitespace in your_url
+- confirmation mail with attachment now works on win32 (fixed in 2.1.4d)
+- changed language codes: ge->de, sp->es
+- Pragma: no-cache in header
+- using <?php starting tags instead of <?
+  (problems with short_open_tag = Off)
+- fixed upgrade/mpdl_cleanup.php
+- active logid sometimes got lost
+- removed unused 'ok' column in log-tables
+
+PowerPhlogger 2.1.4d mySQL                                      07-15-01
+------------------------------------------------------------------------
++ mp/downloads edit function (hidden for guest-users)
++ availability to dynamically serve pphlogger.js
+
+- complete rewrite of load_sql.php
+  (fixes problems with creating new users when magic_quotes_runtime
+   was enabled)
+- fixed ipcheck.php
+  (wrong hit-counting when visitor had dynamic IP / cookies enabled)
+- fixed cookie problems in admin2
+- fixed cookie problem in signup.php
+- use $admin_mail instead of webmaster@$server_dom
+- removed 'top.' in pphlogger.js
+- better log deletion (dellog_lim)
+- fixed top-territories percentage
+- changed your_url, ipblock, cache from BLOB to TEXT
+- OPTIMIZE TABLE for pphlogger_cache
+
+PowerPhlogger 2.1.4c mySQL                                      06-30-01
+------------------------------------------------------------------------
+(no new features! a couple of more fixes)
+- fixed login cookie-problem, works now without reloading
+- 'stat 1'... now editable in language files
+- rewrite of full_screenres()
+- updated screenres_refresh.php (fixes 'res' datatype)
+- added Polish search engines (by eM)
+
+PowerPhlogger 2.1.4b mySQL                                      06-25-01
+------------------------------------------------------------------------
+(no new features! just minor fixes)
+- fixed for pphlogger.js
+  (NS didn't always get logged when called with st='js')
+- fixed online user highlighting
+- fixed 'exit if no valid URL'
+
+PowerPhlogger 2.1.4  mySQL                                       06-17-01
+-------------------------------------------------------------------------
++ text visibility (showhits.php called by JavaScript or PHP)
++ showhits.php is now able to show download hits+ top search engines
++ userprofile: color-palette to choose FG and BG color
++ IP blocking list
++ documentation: how to make your counter visible...
++ better browser detection (YABD - Yet Another Browser Detector)
++ search engines stats
+
+- fixes indexing problem on browser/version/system
+  that occurred in mySQL versions prior to 3.23
+- added dutch search engines to engines-list.ini (by Madberry)
+
+
+PowerPhlogger 2.1.3b mySQL                                       06-04-01
+-------------------------------------------------------------------------
+(no new features!)
+Now PowerPhlogger is ready for different file-extensions other than
+'.php3'. Default is now .php but to change it is pretty easy.
+
+
+PowerPhlogger 2.1.3 mySQL                                        05-28-01
+-------------------------------------------------------------------------
++ browser/OS stats (stats3)
++ extracted agent information (browser, ver, OS)
++ Server link in logs
++ user search function in admin2
++ admin mailing-list feature
++ password privacy: admin won't get noticed about pw-changes
+  (unless he changes this option to false)
++ online timeout value can be set by user
++ mp value & online-time are now getting updated
++ screen resolution now stored as '[width]x[height]'
++ new languages: Portuguese, Traditional Chinese, Chinese Simplified
+
+- entering account does now update last_access
+- entering a useraccount with the activated admin-cookie
+  does now prevent updating last_access
+- fixed show_keywords() in functions.php3
+- fixed dlcount.php3, does now use the correct URL
+- removed all semicolons in mysql_query() statements
+- code clean-up in functions.php3
+- removes spaces in new usernames
+
+
+PowerPhlogger 2.1.2 mySQL                                        04-23-01
+-------------------------------------------------------------------------
++ keyword list mode: single words / full strings
+  can be set in user settings
++ redesign of admin pages. Split up into admin 1-4
++ unlimited alternate URL
++ showhits.php3 shows the following information:
+  hits, daily, monthly hits/views, online users, customers
++ added new css: cartesia.css, lila.css
++ user account cleanup allows to delete unused accounts
++ TTF font viewer shows all available fonts
+
+- signup page now validates email addresses
+- added urldecode() to avoid wrong URL-stripping
+
+
+PowerPhlogger 2.1.1d mySQL                                       03-25-01
+-------------------------------------------------------------------------
++ pageimpressions per user
++ Visitors per day / total pageimpressions graphic
++ updated calendar caching function (without storing html)
+  needs 98% less space and is a lot faster
++ new update_calendar() function combines caching
+  and calculating most recent days
++ split-up Stat page into two separate pages
++ search function for view1_logs
++ highlights online users on logs-page
++ admin mode option to edit useraccounts
++ avg mp / avg online
++ new style: sahara.css
+
+- using stristr() in show_keywords()
+- dlcount.php3 checks for file-existence
+- fixed online values in pphlogger_userlog
+- added mysql_close() to avoid too many connections
+
+PowerPhlogger 2.1.1b mySQL                                       02-24-01
+-------------------------------------------------------------------------
+(no major changes!)
++ added Russian lang-file
++ phpixel.php3 generates 1x1 gifs used in diskspace.php3 'on the fly'
+   (without using gd)
+
+fixes:
+- keywords are now getting added correctly into xxxxx_mpdl
+
+PowerPhlogger 2.1.1 mySQL                                        02-18-01
+-------------------------------------------------------------------------
++ user sign-up page (ALPHA state)
+   users are now able to create accounts on their own
++ calendar shows now also monthly averages
++ caching calendar to reduce server load
++ Top Res & Top Color
++ search engine keyword extraction:
+   list of search-engines is now stored in an ini-file
++ Top keywords
++ average online time
++ ability to change mySQL table-names or table prefix
++ User can download pphlogger.js in case he had lost that file
++ ADMIN: confirm-status of each user can be set
++ ADMIN: reload keywords, clean-up useraccounts
+
+fixes:
+- replaced tablenames with variables, you're now able to change them
+- mysql_domains corrected
+- final fix of the broken-image problem - :) well, I hope so!!
+
+
+
+PowerPhlogger 2.1.0c mySQL                                       02-09-01
+-------------------------------------------------------------------------
++ multi-language support added
+   current localization-files: English, German, Spanish
++ logs by date
+   click on calendar or enter start-date and end-date
+
+fixes:
+- removed 'IF NOT EXISTS' (mySQL 3.23+) in CREATE TABLE.
+  Now checking for table existence.
+- division by zero in calendar.php3
+- Image generation should now also work with GDlib versions
+  prior to 1.6
+- fixed limit-function. removed DELETE LIMIT BY
+- fixed broken-image problem
+
+
+
+PowerPhlogger 2.1.0b mySQL                                       02-04-01
+-------------------------------------------------------------------------
++ added GMT feature
+   each user can choose his timezone
++ limit user-logs to a specific number or days
+   all old entries get deleted automatically
++ show/hide userdata in /admin/
++ Top territories
+   added column 'area' in mysql_domains.sql
+   extracted TLDs from hostnames in the logs-table
+
+simplified randPw-function
+fix in cutURL-function
+created indexes on pphlogger_domains and xxxxx_logs
+ (to speed up Top territorries)
+
+
+PowerPhlogger 2.1.0  mySQL                                       01-25-01
+-------------------------------------------------------------------------
++ whole new design - two different CSS-styles !!
++ split up into several pages: logs, stats, settings,
+   userprofile
++ added IMAGE-SUPPORT using the GD-library
+   finally you're able to make your counter visible!
+   choose TTFont, bg-/fg-color, font-size
++ Top X domains
++ minor changes in /admin
+
+
+PowerPhlogger 2.0.9  mySQL                                       01-14-01
+-------------------------------------------------------------------------
++ show/hide referers in logs (turn showref on/off)
++ demo-mode - you can configure your account that visitors
+   are able to login as guest to check your logs
++ Calendar!! - shows your daily/monthly hits
++ Top X Referers
+
+minor security fix: reset hits checks now for pw
+ipcheck now also checks for cookie
+changed table-design
+
+
+PowerPhlogger 2.0.8  mySQL                                       01-09-01
+-------------------------------------------------------------------------
+added admin mode
+fixed "create new user" - now sends pphlogger.js attached
+admin mode shows all users with settings and direct links
+admin users are able to see last customers that were
+ logged in to PowerPhlogger
+referers from search-engines are parsed and highlighted
+www.phpee.com was redesigned
+
+
+PowerPhlogger 2.0.6  mySQL                                       12-31-00
+-------------------------------------------------------------------------
+complete redesign (3 full days of work !!!)
+PowerPhlogger operates now with a mySQL database
+extended "currently online users" to store the online
+ time for each log
+mySQL dump function
+dl and multipages are stored in the same table
+disk space / sys status hidden if user is no admin
+removed attachment in mail-notice (replaced by mySQL-dump)
+limit hit function added
+
+
+PowerPhlogger 2.0.3                                              12-10-00
+-------------------------------------------------------------------------
+"get new pw"-feature
+ipcheck function added - count only unique visitors
+ user may choose a timeout
+currently online users
+all user configuration is stored in a global file
+v. 2.03a: unique download-count (cookie)
+delete logs now sets back the counter -1
+various bug-fixes
+>> last version without requiring mySQL
+
+
+PowerPhlogger 2.0.1                                              12-05-00
+-------------------------------------------------------------------------
+redesigned to make PowerPhlogger available to anyone
+PowerPhlogger can be called by JavaScript if no PHP avail.
+ screen res & color information added
+created subdirectories with user-files
+login-page with password authentication
+
+
+PowerPhlogger 1.0.6                                              11-26-00
+-------------------------------------------------------------------------
+changed files: phlogview.inc, phlogger.php3
+fixed bug where multiple-page-loggings didn't work
+multiple-page numbers are now getting created "on the fly"
+download-count added
+
+
+PowerPhlogger 1.0.5                                              08-12-00
+-------------------------------------------------------------------------
+first public release
+
+
+
+
+
+please report bugs on the forum:
+  http://www.iezzi.ch/phorum/list.php?f=4
+contact:
+  Philip Iezzi [webmaster@phpeee.com]

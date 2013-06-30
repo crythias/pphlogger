@@ -1,0 +1,31 @@
+Power Phlogger %curr_ver%
+
+Välkommen till PowerPhlogger!
+Vi har utan problem skapat ditt konot. Se nedan din registrerings information :
+======================================
+Anändare: %username%
+Lösenord: %pw_plain%
+======================================
+
+
+Ladda upp den medföljande filen [pphlogger.js] till din server och skriv in följande kod till all dokument som du önskar få phlogged:
+
+___________________________
+<script language="JavaScript" type="text/javascript" src="pphlogger.js"></script>
+<noscript><img alt="" src="%pphlogger_location%pphlogger.{CFG_PHPEXT}?id=%username%&st=img"></noscript>
+___________________________
+
+
+Tillval:
+Om du önskar Logga alla din nerladdnings filer, använd följande kod:
+___________________________
+<a href="%pphlogger_location%dlcount.{CFG_PHPEXT}?id=%username%&url=/yourfile.zip">yourfile.zip</a>
+
+<a href="%pphlogger_location%dlcount.{CFG_PHPEXT}?id=%username%&url=http://www.somewhereelse.com/yourfile.zip">yourfile.zip</a>
+___________________________
+
+
+Gå till PPhlogger hos %pphlogger_location% och kolla din statistik!
+Ta det lungt och ha en bra dag !
+
+%admin_name% <%admin_mail%>

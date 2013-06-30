@@ -1,0 +1,10 @@
+----------------------------------
+statystyki Power Phlogger :
+----------------------------------
+
+%primary_url%
+Ilo¶æ wej¶æ od %datestart_formated%: %hits%
+
+
+(c) PowerPhlogger %curr_ver%  - http://www.phpee.com
+zarz±dzane przez %server_name%

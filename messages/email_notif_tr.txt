@@ -1,0 +1,10 @@
+----------------------------------
+Power Phlogger giriþ istatistikleri:
+----------------------------------
+
+%primary_url%
+%datestart_formated% Tarihinden itibaren hitleriniz: %hits%
+
+
+(c) PowerPhlogger %curr_ver%  - http://www.phpee.com
+Güçlendiren %server_name%

@@ -1,0 +1,10 @@
+----------------------------------
+Power Phlogger besök statistik:
+----------------------------------
+
+%primary_url%
+Antal träffar sedan %datestart_formated%: %hits%
+
+
+(c) PowerPhlogger %curr_ver%  - http://www.phpee.com
+powered by %server_name%

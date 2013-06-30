@@ -1,0 +1,31 @@
+Power Phlogger %curr_ver%
+
+歡迎使用 PowerPhlogger 流量統計服務！
+你的帳號已經申請成功，以下是有關您的註冊資訊：
+======================================
+登入名稱: %username%
+通關密碼: %pw_plain%
+======================================
+
+
+請記得將本信附帶的 [pphlogger.js] 檔案上傳到你的網站伺服器中，別忘了在你想記錄的頁面加上以下代碼：
+
+___________________________
+<script language="JavaScript" type="text/javascript" src="pphlogger.js"></script>
+<noscript><img alt="" src="%pphlogger_location%pphlogger.{CFG_PHPEXT}?id=%username%&st=img"></noscript>
+___________________________
+
+
+附帶一提：
+如果您是要記錄連結或檔案被下載的次數，可以加入以下代碼：:
+___________________________
+<a href="%pphlogger_location%dlcount.{CFG_PHPEXT}?id=%username%&url=/yourfile.zip">yourfile.zip</a>
+
+<a href="%pphlogger_location%dlcount.{CFG_PHPEXT}?id=%username%&url=http://www.somewhereelse.com/yourfile.zip">yourfile.zip</a>
+___________________________
+
+
+立刻點按此進入 %pphlogger_location% 檢視你的網站流量！
+祝您使用愉快！
+
+%admin_name% <%admin_mail%>

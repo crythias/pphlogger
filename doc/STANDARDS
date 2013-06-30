@@ -1,0 +1,41 @@
+$Id: STANDARDS,v 1.7 2003/06/19 20:45:26 cvs_iezzi Exp $
+
+
+data types
+-----------
+*.php     -> php files
+*.inc.php -> php includes
+*.mod.php -> php modules
+*.lib.php -> php libraries
+*.sql     -> mySQL data definitions
+
+PHP file naming
+---------------
+dsp*.php -> display
+chg*.php -> change
+del*.php -> delete
+new*.php -> create
+do*.php  -> execute
+
+language-handling
+-----------------
+bh -> Bosnian
+cn -> Chinese Simplified
+de -> German
+dk -> Danish
+en -> English
+es -> Spanish
+fr -> French
+gr -> Greek
+it -> Italian
+jp -> Japanese
+lv -> Latvian
+nl -> Dutch
+no -> Norwegian
+pl -> Polish
+po -> Brazilian Portugese
+ro -> Romanian
+ru -> Russian
+se -> Swedish
+tr -> Turkish
+tw -> Traditional Chinese

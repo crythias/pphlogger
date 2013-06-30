@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /img/
+Disallow: /include/
+Disallow: /actions/
+Disallow: /modules/
+Disallow: /CVS/
+Disallow: /*/CVS/

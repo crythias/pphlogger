@@ -1,0 +1,32 @@
+Power Phlogger %curr_ver%
+
+witamy w systemie PowerPhlogger!
+Twoje konto zosta³o za³o¿one. Poni¿ej znajdziesz informacje o Twoim koncie :
+======================================
+nazwa u¿ytkownika: %username%
+has³o: %pw_plain%
+======================================
+
+
+aby móc korzystaæ z systemu PowerPhlogger, musisz wgraæ za³±czony plik [pphlogger.js] 
+na Twój serwer i wstawiæ poni¿szy kod do wszyskich plików, które maj± byæ monitorowane:
+
+___________________________
+<script language="JavaScript" type="text/javascript" src="pphlogger.js"></script>
+<noscript><img alt="" src="%pphlogger_location%pphlogger.{CFG_PHPEXT}?id=%username%&st=img"></noscript>
+___________________________
+
+
+opcjonalnie:
+Je¶li chcesz monitorowaæ pliki ¶ci±gane z Twojego serwera, mo¿sz skorzystaæ z poni¿szego kodu:
+___________________________
+<a href="%pphlogger_location%dlcount.{CFG_PHPEXT}?id=%username%&url=/twój_plik.zip">twój_plik.zip</a>
+
+<a href="%pphlogger_location%dlcount.{CFG_PHPEXT}?id=%username%&url=http://www.twój_serwer.com/twój_plik.zip">twój_plik.zip</a>
+___________________________
+
+
+statystyki mmo¿esz zobaczyæ pod adresem %pphlogger_location% 
+Zapraszamy!
+
+%admin_name% <%admin_mail%>

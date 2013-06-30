@@ -1,0 +1,10 @@
+----------------------------------
+Power Phlogger 流量报告:
+----------------------------------
+
+%primary_url%
+自 %datestart_formated% 以来的总流量: %hits%
+
+
+(c) PowerPhlogger %curr_ver%  - http://www.phpee.com
+本服务由 %server_name% 提供

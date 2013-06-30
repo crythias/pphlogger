@@ -1,0 +1,10 @@
+--------------------------------------
+Estadisticas de acceso Power Phlogger:
+--------------------------------------
+
+%primary_url%
+Numero de visitas desde %datestart_formated%: %hits%
+
+
+(c) PowerPhlogger %curr_ver%  - http://www.phpee.com
+funcionado en %server_name%

@@ -1,0 +1,10 @@
+--------------------------------------
+Power Phlogger Apmeklçjuma statistika:
+--------------------------------------
+
+%primary_url%
+Apmeklçjumu skaits kopð %datestart_formated%: %hits%
+
+
+(c) PowerPhlogger %curr_ver%  - http://www.phpee.com
+powered by %server_name%

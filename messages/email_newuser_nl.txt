@@ -1,0 +1,31 @@
+Power Phlogger %curr_ver%
+
+Welkom bij PowerPhlogger!
+Ik heb met succes uw account aangemaakt. Hieronder is uw inlog informatie :
+======================================
+gebruikersnaam : %username%
+wachtwoord     : %pw_plain%
+======================================
+
+
+Upload a.u.b. de [pphlogger.js] naar uw webserver en voeg de volgende code aan alle html bestanden toe die u wilt meten:
+
+___________________________
+<script language="JavaScript" type="text/javascript" src="pphlogger.js"></script>
+<noscript><img alt="" src="%pphlogger_location%pphlogger.{CFG_PHPEXT}?id=%username%&st=img"></noscript>
+___________________________
+
+
+optioneel:
+Als u uw downloads wilt meten voeg dan ook de volgende code in bij uw downloads:
+___________________________
+<a href="%pphlogger_location%dlcount.{CFG_PHPEXT}?id=%username%&url=/bestand.zip">bestand.zip</a>
+
+<a href="%pphlogger_location%dlcount.{CFG_PHPEXT}?id=%username%&url=http://www.ergensanders.nl/bestand.zip">bestand.zip</a>
+___________________________
+
+
+kom op PowerPhlogger op %pphlogger_location% om uw gratis online statistieken te bekijken!
+Met vriendelijke groet,
+
+%admin_name% <%admin_mail%>

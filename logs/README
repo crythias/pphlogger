@@ -1,0 +1,7 @@
+This directory is used for update-log output.
+You can enable log output in your scripts ($logs_outp = 1):
+
+IMPORTANT!:
+In order to use those logging features, please make sure you've
+given your webserver read/write access on this directory, e.g.:
+chmod 666

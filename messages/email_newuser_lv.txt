@@ -1,0 +1,31 @@
+Power Phlogger %curr_ver%
+
+Laipni lûgti sistçmâ PowerPhlogger!
+Jûsu reìistrâcija noritçjusi sekmîgi. Jûsu dati:
+======================================
+Lietotâja vârds: %username%
+Parole: %pw_plain%
+======================================
+
+
+Lûdzu, novietojiet pievienoto Javaskripta datni [pphlogger.js] uz sava servera,
+kâ arî ievietojiet savâ HTML datnç sekojoðu kodu:
+___________________________
+<script language="JavaScript" type="text/javascript" src="pphlogger.js"></script>
+<noscript><img alt="" src="%pphlogger_location%pphlogger.{CFG_PHPEXT}?id=%username%&st=img"></noscript>
+___________________________
+
+
+Opcionâli:
+Ja vçlaties skaitît datòu nosûkðanas reizes, tad izmantojiet sekojoðu kodu:
+___________________________
+<a href="%pphlogger_location%dlcount.{CFG_PHPEXT}?id=%username%&url=/yourfile.zip">yourfile.zip</a>
+
+<a href="%pphlogger_location%dlcount.{CFG_PHPEXT}?id=%username%&url=http://www.somewhereelse.com/yourfile.zip">yourfile.zip</a>
+___________________________
+
+
+Apmeklçjuma atskaites varat aplûkot: http://%server_name%%pphlogger_dir% !
+Sekmes!!
+
+%admin_name% <%admin_mail%>

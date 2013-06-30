@@ -1,0 +1,31 @@
+Power Phlogger %curr_ver%
+
+welcome to PowerPhlogger!
+I successfully created your account. Below is your registration information :
+======================================
+username: %username%
+password: %pw_plain%
+======================================
+
+
+please upload the attached file [pphlogger.js] to your webserver and enter the following code into of all your documents you wish to get phlogged:
+
+___________________________
+<script language="JavaScript" type="text/javascript" src="pphlogger.js"></script>
+<noscript><img alt="" src="%pphlogger_location%pphlogger.{CFG_PHPEXT}?id=%username%&st=img"></noscript>
+___________________________
+
+
+optional:
+If you wish to track your downloads use the following code:
+___________________________
+<a href="%pphlogger_location%dlcount.{CFG_PHPEXT}?id=%username%&url=/yourfile.zip">yourfile.zip</a>
+
+<a href="%pphlogger_location%dlcount.{CFG_PHPEXT}?id=%username%&url=http://www.somewhereelse.com/yourfile.zip">yourfile.zip</a>
+___________________________
+
+
+enter PPhlogger at %pphlogger_location% to check your stats!
+Take care and have a nice day
+
+%admin_name% <%admin_mail%>

@@ -1,0 +1,31 @@
+Power Phlogger %curr_ver%
+
+Добро пожаловать в системе PowerPhlogger!
+Ваша регистрация прошла успешно. Ваши данные:
+======================================
+имя: %username%
+пароль: %pw_plain%
+======================================
+
+
+Пожалуйста, закачайте приложенный Javascript-файл [pphlogger.js] на Ваш сервер,
+а также вставьте в код Вашей страницы следующий HTML-код
+___________________________
+<script language="JavaScript" type="text/javascript" src="pphlogger.js"></script>
+<noscript><img alt="" src="%pphlogger_location%pphlogger.{CFG_PHPEXT}?id=%username%&st=img"></noscript>
+___________________________
+
+
+Опционально:
+если Вы желаете считать downloads на Вашей странице, то вставьте следующий код:
+___________________________
+<a href="%pphlogger_location%dlcount.{CFG_PHPEXT}?id=%username%&url=/yourfile.zip">yourfile.zip</a>
+
+<a href="%pphlogger_location%dlcount.{CFG_PHPEXT}?id=%username%&url=http://www.somewhereelse.com/deinfile.zip">deinfile.zip</a>
+___________________________
+
+
+Вашу статистику Вы можете посмотреть на: %pphlogger_location% !
+Успехов!!
+
+%admin_name% <%admin_mail%>

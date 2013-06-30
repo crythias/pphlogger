@@ -1,0 +1,111 @@
+=======================
+PowerPhlogger TODO-list
+=======================
+Version: $Id: TODO,v 1.24 2003/10/31 17:57:59 cvs_iezzi Exp $
+
+
+Before 2.x release
+==================
+(there won't be any new features in any 2.x versions of PowerPhlogger!
+ We've started to work on PPhlogger3, so there will be only important
+ bug-fixes applied to any future 2.x versions if there are any major bugs.)
+
+Sometimes:
+==========
+
+Documentation:
+--------------
+* adding security section (admin-dir .htaccess, remove upgrade-dir,...)
+* split doc.html into doc_user.html and doc_admin.html
+* integrate doc_user.html into useraccount (incl. user-specific paths)
+
+Additions, new features:
+------------------------
+* user data reset (absolute reset)
+* admin: pw-change for useraccounts
+* topList-script (Carsten)
+* cronjob-scripts for database-maintenance (maybe)
+* storing mysql errors in new table 'pphlogger_errors'
+* downtime/maintenance --> transparent gif / empty string
+* regexps in ip-blocking
+* URL-check in setup.php step 1
+* integrate JPGRAPH, http://www.aditus.nu/jpgraph/ (pphlogger3)
+* multiple URL separation, new pphlogger_urls table (maybe)
+* email stats register_shutdown_function() ?? (maybe)
+* cookie, Java, Flash detection,... (maybe)
+* set guest-pw in usersettings
+* new navigation system, XHTML compatible (pphlogger3)
+* XHTML doctype (pphlogger3)
+* ability to completely disable path-logging
+* dlcount.php: uniqueness not just verified by cookie, als by IP-Check: pphl_xxxxx_ipcheck, type=dl
+* write our own emailer, testing on htmlmime / libmail (pphlogger3)
+* write our own session-management, DB-based (pphlogger3)
+* moving most settings from pphl_settings to Usersettings
+  (a lot of display settings currently can only be modified in setup.php)
+* setup.php: gd_img_type pull-down
+* better spider/bot-detection (agent in combination with hostname)
+* pureURL(): eliminate port 80 in URL (:80/...)
+* give up support for PHP3, PPhlogger will require PHP > 4.1.x (pphlogger3)
+* 'do not count bots', incl. bot-list in engines-list.ini
+
+Verifications/Investigations:
+-----------------------------
+* cookie: mySQL time vs. local (php) time
+* P3P http://www.w3.org/P3P/ (impossible?)
+* PHP coding standards: http://utvikler.start.no/code/php_coding_standard.html
+* removing /admin/plug-ins (??)
+* pphlogger.js frame access error testing
+* using DEFAULT NULL on indexed columns where required (MyISAM only!) - SQL standards ?
+* Mysql-MAX/InnoDB testing
+* pphl_xxxxx_logs: INDEX tld_ind (tld) ???
+
+Security-Issues:
+----------------
+* show_vis_per_day.php: everyone can see ?id=phpee_com&uniq_type=log_day_mo - option in usersettings
+* disabling showhits for public access
+* escapeshellcmd in mysql-commands - security-risk ???
+* adding X-AntiAbuse mail-headers to mailing list
+
+Bug-Fixes:
+----------
+* top.referer exeption handling (in IE!)
+* plugin_diskpsace.php: if quota is overrun, do not display huge disk-bar
+* client-side cookie in pphlogger.js (IE6)
+* error return mailadress to PPhlogger-admin (instead of server-admin!)
+* avoiding /pphlogger/pphlogger.php in mp's (???)
+
+DB Optimization:
+----------------
+* xxxxx_logs: INET_NTOA() and INET_ATON() to store IP as INT [mySQL >= 3.23.15]
+  implementation in PHP4: ip2long(), long2ip()    (planned for pphlogger3)
+* eliminating pphlogger_userlog (deprecated in pphlogger3)
+* moving engines-list.ini to DB: pphlogger_seareng, pphlogger_seareng_url (pphlogger3)
+  e.g. ...WHERE 'abc.php?qry=asdf' IN CONCAT('%',url,'%')
+* stop supporting mySQL 3.22.xx (pphlogger3)
+
+Standard Compliance:
+--------------------
+* valid xhtml attribute to display the "tool tip" of an image is "title" and not "alt"
+* improving XHTML1.0 and CSS2 compliance
+
+Language Localization Updates:
+------------------------------
+* it - Italian (Michele Luongo / Matteo Bettineschi / Luca Mercuri)
+* fr - French (Steve Aguet)
+* bh - Bosnian (A. Bakaran)
+* ru - Russian (Alex Hartmann)
+* nl - Dutch (Marco Broeken)
+* po - Brazilian Portugese (Lacy Amorim)
+* tw - Traditional Chinese (Danny)
+* cn - Chinese Simplified (Danny)
+* no - Norwegian (Basse)
+* tr - Turkish (Canberk)
+* pl - Polish (Wojciech Dorosz)
+* gr - Greek (Takis Papadopoulos)
+* lv - Latvian (Ansis Ataols Bçrziòð)
+(all other languages should be up-to-date)
+
+
+PPhlogger3
+==========
+* planned for April 2004 - currently no further information available.

@@ -1,0 +1,64 @@
+########################################
+# Power Phlogger 2.2.5  - Installation #
+########################################
+
+$Id: INSTALL,v 1.16 2003/10/31 17:57:59 cvs_iezzi Exp $
+
+  Quick Install:
+  **************
+    [1] Unzip the distribution and make sure you keep the file-structure
+
+    [2] Edit config.inc.php and enter your mySQL-information
+
+    [3] Upload all files
+        Make sure your /pphlogger/admin/ directory is password protected
+        If you don't use HTACCESS to protect those files, you need to 
+        implement your authentication yourself.
+
+    [4] NEW INSTALLATION:
+         Run <www.your-host.com>/pphlogger/admin/setup.php
+         in order to create the default settings table and configure
+         PowerPhlogger.
+
+        UPGRADE:
+         Please read the detailed instructions on 
+         http://www.phpee.com/upgrade.php
+
+    [5] now you're ready to start using Power Phlogger!
+        To add new user-accounts enter pphlogger/admin/
+        Please enter the correct URL, e.g.:
+
+        ------------ CORRECT: ------------
+        http://www.domain.com
+        http://www.domain.com/about
+        ----------------------------------
+
+        ----------- !!WRONG!!: -----------
+        http://www.domain.com/about/
+        www.domain.com/about
+        http://www.domain.com/index.html
+        ----------------------------------
+
+    [6] your users will get notified automatically as soon as you create 
+        a new account.
+        
+        here's the code they need to add to their documents (in the body 
+        section):
+
+        <script language="JavaScript" type="text/javascript" src="pphlogger.js"></script>
+        <noscript><img alt="" src="http://www.yourserver.com/pphlogger/pphlogger.php?id=username&st=img"></noscript>
+
+
+
+
+version 2.2.5 - 2003/10/31
+--------------------------
+
+Good luck!
+If you got any questions or problems while installing PowerPhlogger, 
+please check the support-forum: www.iezzi.ch/phorum/list.phtml?f=4
+
+You can get the newest version at http://www.phpee.com
+
+
+(c)2000-2003 Philip Iezzi <webmaster(AT)phpee(DOT)com>

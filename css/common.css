@@ -1,0 +1,103 @@
+/* $Id: common.css,v 1.15 2003/10/31 13:37:46 cvs_iezzi Exp $
+ * PowerPhlogger CSS
+ */
+
+HTML {
+	height: 100%; width: 100%;
+}
+
+BODY {
+	margin: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	background-color: @color_bg@;
+	scrollbar-arrow-color: @color_scrollbar_arrow@;
+	scrollbar-base-color:@color_scrollbar@;
+	color: @color_standard@;
+}
+
+P,TD,TH,DL,LI,UL {
+	font-family: tahoma,verdana,helvetica,courier,arial,sans-serif;
+	font-size: 8pt;
+	color: @color_standard@
+}
+
+H1 { font-size: 24px; font-weight: bold; }
+H2 { font-size: 20px; font-weight: bold; }
+H3 { font-size: 18px; font-weight: bold; }
+
+TH { color: @color_a@; vertical-align: bottom; }
+
+A {
+	font-weight: bold;
+	font-family: tahoma,verdana,helvetica,courier,arial,sans-serif;
+	font-size: 8pt;
+	text-decoration: none;
+	color: @color_a@;
+}
+A:HOVER { color: @color_a_hover@; }
+
+A.invertLink { color: @color_inv@;  }
+A.invertLink:HOVER { color: @color_inv_hover@;  }
+A.invertLink2 { color: @color_inv@; font-weight: normal;  }
+A.invertUsc { color: @color_inv@; text-decoration: underline; }
+A.invertUsc:HOVER { color: @color_inv_hover@;  }
+A.ref { font-weight: normal; color: @color_standard@; }
+A.keywords { font-weight: normal; }
+
+#blacklink { color: @color_standard@; }
+.myInput {
+	font-family: tahoma,verdana,helvetica,courier,arial,sans-serif;
+	background-color: @color_form_bg@;
+	font-size: 8pt;
+	color: @color_form@;
+}
+.myInputGuest {
+	font-family: tahoma,verdana,helvetica,courier,arial,sans-serif;
+	background-color: @color_guestform_bg@;
+	font-size: 8pt;
+	color: @color_guestform@;
+}
+
+TD.color1,TH.color1,TABLE.color1,TR.color1, .color1 P, .color1 TD { background: @color_1@; color: @color_1t@; }
+TD.color2,TH.color2,TABLE.color2,TR.color2, .color2 P, .color2 TD { background: @color_2@; color: @color_2t@; }
+TD.color3,TH.color3,TABLE.color3,TR.color3, .color3 P, .color3 TD { background: @color_3@; color: @color_3t@;  font-size: 13px; font-weight: bold; }
+
+A.color1 { color: @color_1a@; font-weight: bold;}
+A.color2 { color: @color_2a@; font-weight: normal;}
+A.color3, .color3 A { color: @color_3a@; font-size: 13px; font-weight: bold;}
+
+TH.vis, TD.vis { color: @color_vis@; font-weight: bold; }
+TH.vislight, TD.vislight { color: @color_1@; }
+
+TR.ref,TD.ref, .ref TD { background-color: @color_ref@; color: @color_reft@;  }
+A.ref { color: @color_reft@; }
+TH.invertLink { color: @color_inv@;  }
+
+HR { color: @color_bg@; border: solid 1px; }
+
+img { border:none; }
+
+table.box-table {
+	border-width : 1px;
+	border-style : solid;
+	border-color : @color_standard@;
+	background-color: @color_ref@;
+	border-collapse: collapse;
+}
+
+table.box-table td, table.box-table th {
+	border-collapse: collapse;
+	border-top-width : 0px;
+	border-right-width : 0px;
+	border-bottom-width : 1px;
+	border-left-width : 0px;
+	border-style : solid;
+	border-color : @color_standard@;
+}
+
+td.table-header a {
+	color: White;
+}

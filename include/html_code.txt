@@ -1,0 +1,4 @@
+<!-- PowerPhlogger Code START -->
+<script language="JavaScript" type="text/javascript" src="pphlogger.js"></script>
+<noscript><img alt="" src="%pphlogger_location%pphlogger.{CFG_PHPEXT}?id=%username%&st=img"></noscript>
+<!-- PowerPhlogger Code END -->
