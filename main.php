@@ -185,8 +185,8 @@ if (!defined('__GOT_CONFIG__')){
 	
 	/* assign the settings */
 	$sql = "SELECT setting,value,type FROM ".PPHL_TBL_SETTINGS;
-	$res = mysql_query($sql);
-	while ($row = @mysql_fetch_array($res)) {
+	$res = mysqli_query($connected,$sql);
+	while ($row = @mysqli_fetch_array($res)) {
 		
 		${$row['setting'].'_type'} = $row['type'];
 		
