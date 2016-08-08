@@ -19,11 +19,11 @@ if (!defined('__GOT_USERDATA__')){
 	
 	/* assign the user's values */
 	$sql = "SELECT * FROM ".PPHL_TBL_USERS." WHERE id='$id' OR username='$id'";
-	$res = mysql_query($sql);
-	if (mysql_num_rows($res)) {
+	$res = mysqli_query($connected, $sql);
+	if (mysqli_num_rows($res)) {
 		$cnt_user_fields = count($user_fields);
 		for($i = 0; $i < $cnt_user_fields; $i++) {
-			${$user_fields[$i]} = mysql_result($res, 0, $i); //get all user vars
+			${$user_fields[$i]} = mysqli_result($res, 0, $i); //get all user vars
 		}
 	} else {
 		if (isset($redir_view)) {

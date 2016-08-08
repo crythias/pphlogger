@@ -27,21 +27,21 @@ if (!defined('__GOT_HEADSTUFF__')){
 				 . "WHERE ok = 'N' "
 				 . "AND ($curr_gmt_time-t_reload) > $master_timeout";
 			$res = mysqli_query($connected,$sql);
-			echo mysqli_error();
+			echo mysqli_error($connected);
 			while ($row = mysqli_fetch_array($res)) {
 				$onl_sql = "UPDATE ".PPHL_TBL_USERLOG." SET online='".$row[1]."',ok='Y' "
 				         . "WHERE id='".$row[0]."' AND ok = 'N'";
-				$onl_res = mysql_query($onl_sql);
+				$onl_res = mysqli_query($connected,$onl_sql);
 			}
 			$sql = "UPDATE ".PPHL_TBL_USERLOG." SET t_reload = $curr_gmt_time, "
 			     . "ip = '".$userlog_ip."', hostname = '".$userlog_hostname."' "
 			     . "WHERE id=".$id." "
 				 . "AND ok='N'";
-			$res = mysqli_query($sql);
-			if (!mysqli_affected_rows()) {
+			$res = mysqli_query($connected,$sql);
+			if (!mysqli_affected_rows($connected)) {
 				$sql = "INSERT INTO ".PPHL_TBL_USERLOG." (id,ip,hostname,t_since,t_reload) "
 				     . "VALUES (".$id.",'".$userlog_ip."','".$userlog_hostname."',$curr_gmt_time,$curr_gmt_time)";
-				$res = mysqli_query($sql);
+				$res = mysqli_query($connected, $sql);
 			}
 		}
 	} else {

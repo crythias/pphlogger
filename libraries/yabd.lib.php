@@ -47,26 +47,26 @@ function extract_agent($agt) {
 	
 	/* Browser detection */
 	if     (preg_match("/(opera) ([0-9]{1,2}.[0-9]{1,3}){0,1}/i",$agt,$st_regs) ||
-	        preg_match("/(opera/)([0-9]{1,2}.[0-9]{1,3}){0,1}/i",$agt,$st_regs))             {$st_brows = "OP";      $fl_ver = $st_regs[2];}
-	else if(preg_match("/(konqueror)/([0-9]{1,2}.[0-9]{1,3})/i",$agt,$st_regs) ||
-	        preg_match("/(konqueror)/([0-9]{1,2})/i",$agt,$st_regs))                         {$st_brows = "KONQ";    $fl_ver = $st_regs[2]; $st_sys = "Linux";}
-	else if(preg_match("/(NetPositive)/([0-9]{1,2}.[0-9]{1,2}.[0-9]{1,2})/i",$agt,$st_regs)) {$st_brows = "NPOS";    $st_ver = $st_regs[2];}
-	else if(preg_match("/(iCab)/([0-9]{1,2}.[0-9]{1,3})/i",$agt,$st_regs))                   {$st_brows = "ICAB";    $fl_ver = $st_regs[2];}
-	else if(preg_match("/(lynx)/([0-9]{1,2}.[0-9]{1,2}.[0-9]{1,2})/i",$agt,$st_regs) )       {$st_brows = "LX";      $st_ver = $st_regs[2];}
+	        preg_match("/(opera)([0-9]{1,2}.[0-9]{1,3}){0,1}/i",$agt,$st_regs))             {$st_brows = "OP";      $fl_ver = $st_regs[2];}
+	else if(preg_match("/(konqueror)\/([0-9]{1,2}.[0-9]{1,3})/i",$agt,$st_regs) ||
+	        preg_match("/(konqueror)\/([0-9]{1,2})/i",$agt,$st_regs))                         {$st_brows = "KONQ";    $fl_ver = $st_regs[2]; $st_sys = "Linux";}
+	else if(preg_match("/(NetPositive)\/([0-9]{1,2}.[0-9]{1,2}.[0-9]{1,2})/i",$agt,$st_regs)) {$st_brows = "NPOS";    $st_ver = $st_regs[2];}
+	else if(preg_match("/(iCab)\/([0-9]{1,2}.[0-9]{1,3})/i",$agt,$st_regs))                   {$st_brows = "ICAB";    $fl_ver = $st_regs[2];}
+	else if(preg_match("/(lynx)\/([0-9]{1,2}.[0-9]{1,2}.[0-9]{1,2})/i",$agt,$st_regs) )       {$st_brows = "LX";      $st_ver = $st_regs[2];}
 	else if(preg_match("/(links) \(([0-9]{1,2}.[0-9]{1,3})/i",$agt,$st_regs))                {$st_brows = "Links";   $fl_ver = $st_regs[2];}
-	else if(preg_match("/(omniweb/)([0-9]{1,2}.[0-9]{1,3})/i",$agt,$st_regs))                {$st_brows = "OMNI";    $fl_ver = $st_regs[2];}
-	else if(preg_match("/(webtv/)([0-9]{1,2}.[0-9]{1,3})/i",$agt,$st_regs))                  {$st_brows = "WebTV";   $fl_ver = $st_regs[2];}
+	else if(preg_match("/(omniweb\/)([0-9]{1,2}.[0-9]{1,3})/i",$agt,$st_regs))                {$st_brows = "OMNI";    $fl_ver = $st_regs[2];}
+	else if(preg_match("/(webtv\/)([0-9]{1,2}.[0-9]{1,3})/i",$agt,$st_regs))                  {$st_brows = "WebTV";   $fl_ver = $st_regs[2];}
 	else if(preg_match("/(msie) ([0-9]{1,2}.[0-9]{1,3})/i",$agt,$st_regs))                   {$st_brows = "IE";      $fl_ver = $st_regs[2];}
-	else if(preg_match("/(Netscape)/([0-9]{1,2}.[0-9]{1,3})/i",$agt,$st_regs))               {$st_brows = "NS";      $fl_ver = $st_regs[2];}
-	else if(preg_match("/(netscape6)/(6.[0-9]{1,3})/i",$agt,$st_regs))                       {$st_brows = "NS";      $fl_ver = $st_regs[2];}
-	else if(preg_match("/Mozilla/5/i",$agt) &&
+	else if(preg_match("/(Netscape)\/([0-9]{1,2}.[0-9]{1,3})/i",$agt,$st_regs))               {$st_brows = "NS";      $fl_ver = $st_regs[2];}
+	else if(preg_match("/(netscape6)\/(6.[0-9]{1,3})/i",$agt,$st_regs))                       {$st_brows = "NS";      $fl_ver = $st_regs[2];}
+	else if(preg_match("/Mozilla\/5/i",$agt) &&
 	        preg_match("/(rv:)([0-9]{1,2}.[0-9]{1,3})/i",$agt,$st_regs))                     {$st_brows = "MZ";      $fl_ver = $st_regs[2];}
-	else if(preg_match("/mozilla/5/i",$agt))                                                 {$st_brows = "NS";      $fl_ver = '6';        }
-	else if(preg_match("/(mozilla)/([0-9]{1,2}.[0-9]{1,3})/i",$agt,$st_regs))                {$st_brows = "NS";      $fl_ver = $st_regs[2];}
+	else if(preg_match("/mozilla\/5/i",$agt))                                                 {$st_brows = "NS";      $fl_ver = '6';        }
+	else if(preg_match("/(mozilla)\/([0-9]{1,2}.[0-9]{1,3})/i",$agt,$st_regs))                {$st_brows = "NS";      $fl_ver = $st_regs[2];}
 	else if(preg_match("/w3m/i",$agt))                                                       {$st_brows = "w3m";                           }
 	else if(preg_match("/(scooter)-([0-9]{1,2}.[0-9]{1,3})/i",$agt,$st_regs))                {$st_brows = "Scooter"; $fl_ver = $st_regs[2];}
-	else if(preg_match("/(w3c_validator)/([0-9]{1,2}.[0-9]{1,3})/i",$agt,$st_regs))          {$st_brows = "W3C";     $fl_ver = $st_regs[2];}
-	else if(preg_match("/(googlebot)/([0-9]{1,2}.[0-9]{1,3})/i",$agt,$st_regs))              {$st_brows = "Google";  $fl_ver = $st_regs[2];}
+	else if(preg_match("/(w3c_validator)\/([0-9]{1,2}.[0-9]{1,3})/i",$agt,$st_regs))          {$st_brows = "W3C";     $fl_ver = $st_regs[2];}
+	else if(preg_match("/(googlebot)\/([0-9]{1,2}.[0-9]{1,3})/i",$agt,$st_regs))              {$st_brows = "Google";  $fl_ver = $st_regs[2];}
 	else {$st_brows = '';}
 	
 	

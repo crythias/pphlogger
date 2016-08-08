@@ -35,7 +35,7 @@ if (@$action == 'vph_reload') {
 			$sql .= " AND yyyymm=".$yyyymm;
 		}
 	}
-	if($sql) mysql_query($sql);
+	if($sql) mysqli_query($connected,$sql);
 }
 
 /* update calendar
@@ -50,8 +50,8 @@ if (isset($show_impr)) {
 	$uniq_type = 'log_day_mo';
 }
 $sql = "SELECT * FROM ".PPHL_TBL_CACHE." WHERE type='$uniq_type' AND id=$id";
-$res = @mysql_query($sql);
-$cache = mysql_num_rows($res);
+$res = @mysqli_query($connected,$sql);
+$cache = mysqli_num_rows($res);
 if($cache) {
 	if ($cache_calendar == 0) echo update_calendar($uniq_type);
 } else {

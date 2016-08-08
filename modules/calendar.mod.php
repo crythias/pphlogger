@@ -31,7 +31,7 @@ function reload_calendar($uniq_type = 'log_day_mo') {
  * reloads the vis-per-hour cache
  */
 function reload_visperhour($hour_mode = 'log_hour_month', $yyyymm = 0) {
-	
+	global $connected;
 	global $tbl_logs,$curr_gmt_time,$curr_usr_time,$gmt, $id;
 	
 	if ($hour_mode == 'log_hour_month') {
@@ -49,8 +49,8 @@ function reload_visperhour($hour_mode = 'log_hour_month', $yyyymm = 0) {
 		 . "FROM $tbl_logs "
 		 . $sql2
 		 . "GROUP BY hour";
-	$res = mysql_query($sql);
-	while ($row = mysql_fetch_array($res)) {
+	$res = mysqli_query($connected,$sql);
+	while ($row = mysqli_fetch_array($res)) {
 		$hour_index = (int) $row['hour'];
 		$arrHour[$hour_index] = $row['hits'];
 	}
@@ -66,7 +66,7 @@ function reload_visperhour($hour_mode = 'log_hour_month', $yyyymm = 0) {
  */
 function update_calendar($uniq_type = 'log_day_mo') {
 	
-	global $tbl_logs,$id;
+	global $tbl_logs,$id,$connected;
 	global $curr_gmt_time,$curr_usr_time;
 	
 	$finished = false;
@@ -77,10 +77,10 @@ function update_calendar($uniq_type = 'log_day_mo') {
 	 */
 	$sql = "SELECT yyyymm,cache,time FROM ".PPHL_TBL_CACHE." WHERE id=$id AND type='$uniq_type' "
 	     . "ORDER BY yyyymm DESC";
-	$res       = mysql_query($sql);
-	$yyyymm    = mysql_result($res,0,'yyyymm');
-	$cache     = mysql_result($res,0,'cache');
-	$timestamp = mysql_result($res,0,'time');
+	$res       = mysqli_query($connected,$sql);
+	$yyyymm    = mysqli_result($res,0,'yyyymm');
+	$cache     = mysqli_result($res,0,'cache');
+	$timestamp = mysqli_result($res,0,'time');
 	
 	$tstamp_usr   = GMTtoUser($timestamp);
 	$timestamp_ym = (int) date('Ym',$tstamp_usr);
@@ -101,8 +101,8 @@ function update_calendar($uniq_type = 'log_day_mo') {
 				if ($uniq_type == 'log_day_mo') $uniq_sql = 'COUNT(mp)';
 				else                            $uniq_sql = 'SUM(mp)';
 				$sql = "SELECT $uniq_sql AS D FROM $tbl_logs WHERE time BETWEEN $gmt_day AND ($gmt_day+86400)";
-				$res = mysql_query($sql);
-				$cache_arr[$j-1] = mysql_result($res,0,0);
+				$res = mysqli_query($connected,$sql);
+				$cache_arr[$j-1] = mysqli_result($res,0,0);
 				if (date('Ymd',GMTtoUser($gmt_day)) >= $today) $finished = true;
 			}
 		}
@@ -137,7 +137,7 @@ function show_calendar($uniq_type = 'log_day_mo') {
 	global $strVisPerDay,$strLast,$strMonths,$strMonth,$strAverageAbbr,$strTotal;
 	global $str_arrMonthsAbbr,$cache_calendar;
 	global $inc_delcalendar,$guest,$strThousandSep;
-	global $usr_view;
+	global $usr_view, $connected;
 	
 	/*
 	 * calculate the first months from which the calendar should start to show up
@@ -147,12 +147,12 @@ function show_calendar($uniq_type = 'log_day_mo') {
 	$sql = "SELECT yyyymm,cache FROM ".PPHL_TBL_CACHE." WHERE id=$id AND type='$uniq_type'"
 	     . " AND yyyymm > $show_start_yyyymm"
 	     . " ORDER BY yyyymm";
-	$res = mysql_query($sql);
+	$res = mysqli_query($connected,$sql);
 	
 	// create header of calendar
 	$buffer = "<div align=\"center\"><table cellspacing=\"1\" border=\"0\">\n";
 	$buffer .= "<tr><td class=\"vis\" colspan=\"34\">";
-	$buffer .= $strVisPerDay." - ".$strLast." ".mysql_num_rows($res)." ".$strMonths;
+	$buffer .= $strVisPerDay." - ".$strLast." ".mysqli_num_rows($res)." ".$strMonths;
 	$buffer .= "</td></tr>\n";
 	$buffer .= "<tr><th class=\"vis\">".$strMonth."</th>";
 	for ($cpt = 1; $cpt <= 31; $cpt++)
@@ -163,7 +163,7 @@ function show_calendar($uniq_type = 'log_day_mo') {
 	$big_cnt_values = 0;
 	$big_total  = 0;
 	
-	while ($row = mysql_fetch_array($res)) {
+	while ($row = mysqli_fetch_array($res)) {
 		$cache = unserialize($row['cache']);
 		if(!$cache) exit;
 		$Year  = substr($row['yyyymm'], 0, 4);

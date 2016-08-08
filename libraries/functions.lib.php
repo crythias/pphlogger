@@ -27,7 +27,7 @@ function pphlShutdown() {
 }
 
 function getPPhlVersion() {
-	
+	global $connected;
 	$sql = "SELECT cache FROM ".PPHL_TBL_CACHE." WHERE type = 'curr_ver'";
 	$res = mysqli_query($connected,$sql);
 	return @mysqli_result($res,0,0);
@@ -56,7 +56,7 @@ function createID() { // create a new random-ID
   checks if a user-ID already exists
   --------------------------------------------------*/
 function check_if_exists($id) {
-	
+	global $connected;
 	$res = mysqli_query($connected,"SELECT id FROM ".PPHL_TBL_USERS." WHERE id=".$id.";");
 	if (@mysqli_num_rows($res)) return true;
 	else return false;
@@ -279,7 +279,7 @@ function randPw($length) {
   email-address
   --------------------------------------------------*/
 function newPw($username,$email,$newPw = '') {
-	global $admin_mail,$pass_length;
+	global $admin_mail,$pass_length, $connected;
 	global $pw_privacy;
 	
 	if($newPw == '') $newPw = randPw($pass_length);
@@ -484,7 +484,7 @@ function insert_keyw ($keywrd, $table = '') {
   --------------------------------------------------*/
 function insert_mpdl ($url, $type = 'mp', $table = false, $title = '', $update = true, $active = 1) {
 	
-	global $tbl_mpdl,$curr_gmt_time;
+	global $tbl_mpdl,$curr_gmt_time, $connected;
 	
 	if (!$table) $table = $tbl_mpdl;
 	$url    = addslashes_mq($url);
@@ -492,10 +492,10 @@ function insert_mpdl ($url, $type = 'mp', $table = false, $title = '', $update =
 	
 	$sql = "SELECT id, enabled FROM $table WHERE type = '".$type."' AND url = '".$url."'";
 	$res = mysqli_query($connected,$sql);
-	if (!mysqli_num_rows($connected,$res)) {
+	if (!mysqli_num_rows($res)) {
 		$sql2 = "INSERT INTO $table (enabled,type,url,since,title) VALUES ($active,'$type','$url',$curr_gmt_time,'$title')";
 		$res2 = mysqli_query($connected,$sql2);
-		return mysqli_insert_id();
+		return mysqli_insert_id($connected);
 	} else {
 		if($update) {
 			$enabled = mysqli_result($res,0,1);
@@ -511,7 +511,7 @@ function insert_mpdl ($url, $type = 'mp', $table = false, $title = '', $update =
 }
 
 function mpdl_setTitle ($url, $title) {
-	global $tbl_mpdl;
+	global $tbl_mpdl, $connected;
 	
 	$url    = addslashes_mq($url);
 	
@@ -528,7 +528,7 @@ function mpdl_setTitle ($url, $title) {
   --------------------------------------------------*/
 function insert_res ($w, $h) {
 	
-	global $tbl_res;
+	global $tbl_res, $connected;
 	
 	$sql = "SELECT id FROM $tbl_res WHERE width = $w AND height = $h";
 	$res = mysqli_query($connected,$sql);
@@ -547,7 +547,7 @@ function insert_res ($w, $h) {
   returns the id of the new/existing agent
   --------------------------------------------------*/
 function insert_agent ($agt, $extract = false) {
-	
+	global $connected;
 	$sql = "SELECT id FROM ".PPHL_TBL_AGENTS." WHERE agent = '".$agt."'";
 	$res = mysqli_query($connected,$sql);
 	if (!@mysqli_num_rows($res)) {
@@ -739,7 +739,7 @@ function get_gd_type() {
   unserialize it.
   --------------------------------------------------*/
 function getSerializedCache($type, $cache_secs = 0, $yyyymm = 0) {
-	global $id, $curr_gmt_time;
+	global $id, $curr_gmt_time, $connected;
 	
 	if(empty($id)) $id = 0;
 	
@@ -763,13 +763,13 @@ function getSerializedCache($type, $cache_secs = 0, $yyyymm = 0) {
   the cache table.
   --------------------------------------------------*/
 function putSerializedCache($type, $cache, $id = 0, $yyyymm = 0) {
-	global $curr_gmt_time;
+	global $curr_gmt_time,$connected;
 	
 	$sCache = addslashes(serialize($cache));
 	
 	$sql = "UPDATE ".PPHL_TBL_CACHE." SET cache='".$sCache."', time=$curr_gmt_time WHERE id=$id AND type='$type' AND yyyymm=$yyyymm";
 	$res = mysqli_query($connected,$sql);
-	if (mysqli_affected_rows()) {
+	if (mysqli_affected_rows($connected)) {
 		return true;
 	} else {
 		$sql = "INSERT INTO ".PPHL_TBL_CACHE." (id,type,yyyymm,cache,time) VALUES ($id,'$type',$yyyymm,'".$sCache."',$curr_gmt_time)";
@@ -787,7 +787,7 @@ function putSerializedCache($type, $cache, $id = 0, $yyyymm = 0) {
   --------------------------------------------------*/
 function create_vis_per_month($Year = 0,$Month = 0,$uniq_type = 'log_day_mo') {
 	
-	global $tbl_logs,$curr_gmt_time,$id,$curr_usr_time;
+	global $tbl_logs,$curr_gmt_time,$id,$curr_usr_time, $connected;
 	
 	/* default values, if not specified */
 	if($Year == 0)  $Year  = (int) date('Y', $curr_usr_time);
@@ -856,7 +856,7 @@ function extract_server($host) {
   some multi-page functions
   --------------------------------------------------*/
 function getMpArr($tbl = '') {
-	global $tbl_mpdl;
+	global $tbl_mpdl, $connected;
 	
 	$tbl = ($tbl != '') ? $tbl : $tbl_mpdl;
 	
@@ -876,7 +876,7 @@ function getMpArr($tbl = '') {
 }
 
 function getMpArr_short($tbl = '') {
-	global $tbl_mpdl;
+	global $tbl_mpdl,$connected;
 	
 	$tbl = ($tbl != '') ? $tbl : $tbl_mpdl;
 	
@@ -946,7 +946,7 @@ function get_mp_last($path) {
   returns an array with all User-IDs
   --------------------------------------------------*/
 function getUseridArr() {
-	
+	global $connected;
 	$sql = "SELECT id FROM ".PPHL_TBL_USERS;
 	$res = mysqli_query($connected,$sql);
 	if (@mysqli_num_rows($res)) {
@@ -1223,13 +1223,41 @@ function getHEX($mycolor) {
   gets the fields of a table in the given database and 
   returns them as an array
   --------------------------------------------------------*/
-function getTableFields($tbl) {
+function getTableFields($table) {
+	//global $connected;
+	//$res = mysqli_list_fields(PPHL_DB_NAME, $tbl);
+	//$cnt_fields = mysqli_num_fields($res);
+	//for($i = 0; $i < $cnt_fields; $i++)
+	//	$fields[$i] = mysqli_field_name($res, $i);
+	//return $fields;
+
 	global $connected;
-	$res = mysqli_list_fields(PPHL_DB_NAME, $tbl);
-	$cnt_fields = mysqli_num_fields($res);
-	for($i = 0; $i < $cnt_fields; $i++)
-		$fields[$i] = mysqli_field_name($res, $i);
-	return $fields;
+
+        if (!empty($table)) {
+            $fullname = $table;
+
+            if ($result = mysqli_query($connected, 'SHOW COLUMNS FROM '.$table)) {
+		while($row = mysqli_fetch_array($result)) {
+		    $tablefields[] = $row[0];
+		}
+                return $tablefields;
+            }
+        }
+        return false;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 /*--------------------------------------------------------
@@ -1821,7 +1849,7 @@ function stripInput($str) {
 }
 
 // hack to simulate mysql_result
-function mysqli_result($res, $row, $field=0) { 
+function mysqli_result($res, $row, $field=0) {
     mysqli_data_seek($res,$row);
     $datarow = mysqli_fetch_array($res); 
     return $datarow[$field]; 

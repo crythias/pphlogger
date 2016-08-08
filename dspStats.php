@@ -17,8 +17,8 @@ include CFG_LANG_PATH.$lang.'_tld.inc.'.CFG_PHPEXT;
 if (isset($edit) && !$guest) {
 	$option_list = '';
 	$sql = "SELECT id,url FROM $tbl_mpdl WHERE type='".$edit."' AND enabled ORDER BY hits";
-	$res = mysql_query($sql);
-	while ($row = @mysql_fetch_array($res)) {
+	$res = mysqli_query($connected,$sql);
+	while ($row = @mysqli_fetch_array($res)) {
 		$option_list .= "<option value=\"$row[0]\">".shortString($row[1],60,3,false)."</option>\n";
 	}
 ?>
@@ -54,9 +54,9 @@ $ArrMpdlDel[0] = Array('&nbsp;',$edit,$strHits,$strSince);
 $ArrMpdlDel[1] = Array('', ' align="left"',' align="left"', ' align="left"');
 $ArrMpdlDel[2] = Array('', ' align="left"',' align="right"', ' align="right" nowrap="nowrap"');
 $mpdl_sql = "SELECT id,url,hits,since FROM $tbl_mpdl WHERE type='".$edit."' AND enabled ORDER BY hits DESC";
-$mpdl_res = mysql_query($mpdl_sql);
+$mpdl_res = mysqli_query($connected,$mpdl_sql);
 $i = 3;
-while ($row = @mysql_fetch_array($mpdl_res)) {
+while ($row = @mysqli_fetch_array($mpdl_res)) {
 	$checked = !empty($checkall) ? ' checked="checked"' : '';
 	$ArrMpdlDel[$i][0] = "<input type=\"checkbox\" name=\"selected_tbl[]\" value=\"".$row['id']."\"$checked />";
 	$ArrMpdlDel[$i][1] = mpdl_ATag($row['url'], $edit, shortString($row['url'],90,3,false));
@@ -122,9 +122,9 @@ if (!$CacheMp) {
 	$ArrMp[1] = Array(' align="left" nowrap="nowrap"', ' align="right"', ' nowrap="nowrap"');
 	$ArrMp[2] = $ArrMp[1];
 	$sql = "SELECT url,hits,since,title FROM $tbl_mpdl WHERE type='mp' AND enabled ORDER BY hits DESC";
-	$res = mysql_query($sql);
+	$res = mysqli_query($connected,$sql);
 	$i = 3; $m = 1;
-	while ($row = @mysql_fetch_array($res)) {
+	while ($row = @mysqli_fetch_array($res)) {
 		$gif_no = ($m > 40) ? "other" :  $m;
 		if (isset($mplist_titles_on)) {
 			$alt    = '#'.$m.' '.$row[0];
@@ -164,9 +164,9 @@ if (!$CacheRef) {
 	$sql = "SELECT SUBSTRING_INDEX(TRIM('http://' FROM referer),'/',1) AS ref, "
 	     . "COUNT(SUBSTRING_INDEX(TRIM('http://' FROM referer),'/',1)) AS hits "
 	     . "FROM ".$tbl_logs." WHERE referer<>'' GROUP by ref ORDER by hits DESC LIMIT ".$topref_lim;
-	$res = mysql_query($sql);
+	$res = mysqli_query($connected,$sql);
 	$i = 3;
-	while ($row = @mysql_fetch_array($res)) {
+	while ($row = @mysqli_fetch_array($res)) {
 		$ArrRef[$i][0] = '<a href="http://'.$row[0].'">'.$row[0].'</a>';
 		$ArrRef[$i][1] = $row[1];
 		$i++;
@@ -191,13 +191,13 @@ if (!$CacheDom) {
 	
 	$sql  = "SELECT tld AS D, COUNT(*) AS C FROM ".$tbl_logs." "
 	      . "WHERE tld>'' GROUP BY D ORDER BY C DESC LIMIT 0, $topdomain_lim";
-	$res = mysql_query($sql);
-	$nb_enr = @mysql_num_rows($res);
+	$res = mysqli_query($connected,$sql);
+	$nb_enr = @mysqli_num_rows($res);
 	
 	
 	if ($nb_enr != 0) {
 		$i = 3;
-		while ($dom = mysql_fetch_array($res)) {
+		while ($dom = mysqli_fetch_array($res)) {
 			$ArrDom[$i][0] = "&nbsp;<a>".$dom[0]."</a>&nbsp;";
 			$descr = @$loca['tld'][strtolower($dom[0])];
 			// country flags
@@ -233,9 +233,9 @@ if (!$CacheRes) {
 	$ArrRes[2] = $ArrRes[1];
 	$sql = "SELECT res_w,res_h,count(res_w) AS C FROM ".$tbl_logs." "
 	     . "WHERE res_w > 0 GROUP BY res_w,res_h ORDER BY C DESC LIMIT ".$topres_lim;
-	$res = mysql_query($sql);
+	$res = mysqli_query($connected,$sql);
 	$i = 3;
-	while ($row = @mysql_fetch_array($res)) {
+	while ($row = @mysqli_fetch_array($res)) {
 		$ArrRes[$i][0] = '<a>'.$row[0].'x'.$row[1].'</a>';
 		$ArrRes[$i][1] = $row[2];
 		$i++;
@@ -258,9 +258,9 @@ if (!$CacheColor) {
 	$ArrColor[2] = $ArrColor[1];
 	$sql = "SELECT color,count(color) AS C FROM ".$tbl_logs." "
 	     . "WHERE color > 0 GROUP BY color ORDER BY C DESC LIMIT ".$topcolor_lim;
-	$res = mysql_query($sql);
+	$res = mysqli_query($connected,$sql);
 	$i = 3;
-	while ($row = @mysql_fetch_array($res)) {
+	while ($row = @mysqli_fetch_array($res)) {
 		$ArrColor[$i][0] = '<a>'.$row[0].'</a>';
 		$ArrColor[$i][1] = $row[1];
 		$i++;
@@ -283,14 +283,14 @@ if (!$CacheTerr) {
 	$ArrTerr[2] = Array(' align="left"', ' align="right"', ' align="right"');
 	
 	$sql = "SELECT count(*) AS total FROM ".$tbl_logs." WHERE tld > ''";
-	$res = mysql_query($sql);
-	$total_tld = mysql_result($res,0,'total');
+	$res = mysqli_query($connected,$sql);
+	$total_tld = mysqli_result($res,0,'total');
 	
 	$sql = "SELECT area,COUNT(*) AS C FROM ".$tbl_logs." AS T1, ".PPHL_TBL_DOMAINS." AS T2 "
 	     . "WHERE T1.tld=T2.tld GROUP BY area ORDER BY C DESC";
-	$res = mysql_query($sql);
+	$res = mysqli_query($connected,$sql);
 	$i = 3;
-	while ($row = @mysql_fetch_array($res)) {
+	while ($row = @mysqli_fetch_array($res)) {
 		$thisarea = (@$str_area[$row[0]]) ? $str_area[$row[0]] : $strUndefined;
 		$ArrTerr[$i][0] = "&nbsp;<a>".$thisarea."</a>&nbsp";
 		$ArrTerr[$i][1] = round(100*$row[1]/$total_tld).' %';
@@ -315,13 +315,13 @@ echo htmlStatTable($ArrTerr);
 	$ArrLastRef[1] = Array('', ' align="right"');
 	$ArrLastRef[2] = $ArrLastRef[1];
 	$sql = "SELECT time FROM ".$tbl_logs." WHERE referer > '' ORDER BY time DESC LIMIT $lastref_lim,1";
-	$res = mysql_query($sql);
-	$ref_sql_limit = @mysql_result($res,0,'time');
+	$res = mysqli_query($connected,$sql);
+	$ref_sql_limit = @mysqli_result($res,0,'time');
 	$sql_reftime = ($ref_sql_limit) ? " time > $ref_sql_limit AND" : '';
 	$sql = "SELECT referer,count(referer) AS hits FROM ".$tbl_logs." WHERE".$sql_reftime." referer > '' GROUP BY referer ORDER BY hits DESC,time DESC";
-	$res = mysql_query($sql);
+	$res = mysqli_query($connected,$sql);
 	$i = 3;
-	while ($row = @mysql_fetch_array($res)) {
+	while ($row = @mysqli_fetch_array($res)) {
 		$ArrLastRef[$i][0] = '<a href="'.htmlspecialchars($row[0]).'">'.htmlspecialchars(shortString(urldecode($row[0]),51,3)).'</a>';
 		$ArrLastRef[$i][1] = $row[1];
 		$i++;
@@ -342,9 +342,9 @@ if (!$CacheKeyw) {
 	$ArrKeyw[1] = Array('', ' align="right"');
 	$ArrKeyw[2] = $ArrKeyw[1];
 	$sql = "SELECT url,hits FROM $tbl_mpdl WHERE type = 'kw' AND enabled ORDER BY hits DESC LIMIT $topkeywords_lim";
-	$res = mysql_query($sql);
+	$res = mysqli_query($connected,$sql);
 	$i = 3;
-	while ($row = @mysql_fetch_array($res)) {
+	while ($row = @mysqli_fetch_array($res)) {
 		$ArrKeyw[$i][0] = shortString($row[0],54,3);
 		$ArrKeyw[$i][1] = $row[1];
 		$i++;
@@ -372,9 +372,9 @@ if (!$CacheDl) {
 	} else {
 		$sql = "SELECT url,hits,since FROM $tbl_mpdl WHERE type='dl' AND enabled ORDER BY hits DESC";
 	}
-	$res = mysql_query($sql);
+	$res = mysqli_query($connected,$sql);
 	$i = 3;
-	while ($row = @mysql_fetch_array($res)) {
+	while ($row = @mysqli_fetch_array($res)) {
 		$this_dl_url = (isset($row[3])) ? $row[3] : $row[0];
 		$dl_url = shortString(stripslashes($row[0]),33,4);
 		if (!strstr($row[0],"://")) $dl_full_url = $primary_url.$this_dl_url;
