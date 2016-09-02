@@ -12,7 +12,7 @@ if ($password == $pw) {
 	if (isset($settings_update)) {
 		$sql = "UPDATE ".PPHL_TBL_USERS." SET ipblock = '".trim($N_ipblock)."',refblock = '".trim($N_refblock)."', "
 		     . "ownref = '".trim($N_ownref)."', index_files = '".trim($N_index_files)."', qstr = '".trim($N_qstr)."' WHERE id = ".$id;
-		$res = mysql_query($sql);
+		$res = mysqli_query($connected, $sql);
 		Header("Location: $usr_view[5]?ipblockupd=$res");
 		exit;
 	/*
@@ -21,9 +21,9 @@ if ($password == $pw) {
 	} else if(isset($settings_dlunite)) {
 		$N_dlunite = ($dlunite) ? 0 : 1;
 		$sql = "UPDATE ".PPHL_TBL_USERS." SET dlunite = $N_dlunite WHERE id = $id";
-		$res = mysql_query($sql);
+		$res = mysqli_query($connected, $sql);
 		$sql = "DELETE FROM ".PPHL_TBL_CACHE." WHERE type = 'dl' AND id = $id";
-		mysql_query($sql);
+		mysqli_query($connected, $sql);
 		Header("Location: $usr_view[2]");
 		exit;
 	/*
@@ -32,9 +32,9 @@ if ($password == $pw) {
 	} else if(isset($settings_flags)) {
 		$N_flags = ($flags) ? 0 : 1;
 		$sql = "UPDATE ".PPHL_TBL_USERS." SET flags = $N_flags WHERE id = $id";
-		$res = mysql_query($sql);
+		$res = mysqli_query($connected,$sql);
 		$sql = "DELETE FROM ".PPHL_TBL_CACHE." WHERE type = 'dom' AND id = $id";
-		mysql_query($sql);
+		mysqli_query($connected,$sql);
 		Header("Location: $usr_view[2]");
 		exit;
 	/*
@@ -57,10 +57,10 @@ if ($password == $pw) {
 			$arr_engines = load_engines();
 			//scan through the log-table and extract keywords
 			$sql_del = "DELETE FROM ".$tbl_mpdl." WHERE type = 'kw'";
-			$res_del = mysql_query($sql_del);
+			$res_del = mysqli_query($connected,$sql_del);
 			$sql_keyw = "SELECT referer FROM ".$tbl_logs." WHERE referer LIKE '%?%'";
-			$res_keyw = mysql_query($sql_keyw);
-			while ($row_keyw = @mysql_fetch_array($res_keyw)) {
+			$res_keyw = mysqli_query($connected,$sql_keyw);
+			while ($row_keyw = @mysqli_fetch_array($res_keyw)) {
 				$keywrd = show_keywords($row_keyw['referer'], $arr_engines);
 				if ($keywrd[3]) insert_keyw($keywrd[3]);
 			}
@@ -74,7 +74,7 @@ if ($password == $pw) {
 			 . "bg_c = '".$N_bg_c."', fg_c = '".$N_fg_c."', bg_trans = ".$N_bg_trans.", gmt = '".$N_gmt."', "
 			 . "lang = '".$N_lang."', kwspl = ".$N_kwspl." "
 		     . "WHERE id = ".$id;
-		$res = mysql_query($sql);
+		$res = mysqli_query($connected,$sql);
 		
 		Header("Location: $usr_view[6]?edited_ok=$res");
 	}

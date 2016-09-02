@@ -119,7 +119,7 @@ if ( !isset($$cookie_phloff) &&  // cookie-switch off?
 	 */
 	if (isset($jslogid) && $st == 'js') {
 		$sql = "UPDATE $tbl_logs SET res_w = $res_w, res_h = $res_h, color = $c WHERE logid = $jslogid";
-		$res = mysql_query($sql);
+		$res = mysqli_query($connected,$sql);
 		mpdl_setTitle ($url, $title);
 		setcookie($cookie_same, $jslogid, time()+$timeout);
 		// nothing else needs to be done here

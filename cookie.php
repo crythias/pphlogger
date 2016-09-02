@@ -44,7 +44,7 @@ if ($password == $pw || $guest) {
 	
 	if (isset($mplist_titles_onoff)) { //mp-list titles on/off
 		$sql = "DELETE FROM ".PPHL_TBL_CACHE." WHERE type = 'mp' AND id = $id";
-		mysql_query($sql);
+		mysqli_query($connected,$sql);
 		if (isset($mplist_titles_on)) setcookie("mplist_titles_on", "", time() - 3600);
 		else setcookie("mplist_titles_on", "1", $lifetime);
 	}

@@ -59,7 +59,7 @@ $mpArr = getMpArr();
 
 /* delete old logs */
 include INC_DELLOGS;
-$LOGSCLEANUP = new LogsCleanUp();
+$LOGSCLEANUP = new LogsCleanUp($connected);
 $LOGSCLEANUP->execute();
 ?>
 

@@ -161,7 +161,7 @@ function _cutIndex($url) {
 }
 
 function _cutQueryPart($url) {
-	preg_replace("/([^\?#&; ]*)/",$url,$split_url);
+	preg_match("/([^\?#&; ]*)/",$url,$split_url);
 	return trim($split_url[1]);
 }
 
@@ -563,7 +563,7 @@ function insert_agent ($agt, $extract = false) {
 			$sql2 = "INSERT INTO ".PPHL_TBL_AGENTS." (agent) VALUES ('$agt')";
 		}
 		$res2 = mysqli_query($connected,$sql2);
-		return mysqli_insert_id();
+		return mysqli_insert_id($connected);
 	} else {
 		return mysqli_result($res,0,0);
 	}
@@ -1286,7 +1286,7 @@ function get_online_users() {
 	$onlUsers = array(); $o = 0;
 	$sql = "SELECT logid FROM ".$tbl_logs." "
 	     . "WHERE t_reload > ".($curr_gmt_time-$timeout_onl);
-	$res = mysqli_query($sql);
+	$res = mysqli_query($connected, $sql);
 	while ($row = mysqli_fetch_array($res)) {
 		$onlUsers[$o] = $row['logid'];
 		$o++;

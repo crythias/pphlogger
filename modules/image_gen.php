@@ -49,7 +49,7 @@ if (!$visible || $showme == 'n') {
 		$ttf_file = $ttf_realdir.$ttf_file;
 	} else {
 		// Make sure there is no .ttf extension, GD2 doesn't like this!
-		$ttf_file = eregi_replace('.ttf','',$ttf_file);
+		$ttf_file = preg_replace('/.ttf/','',$ttf_file);
 	}
 	
 	

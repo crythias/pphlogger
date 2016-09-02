@@ -23,8 +23,8 @@ class LogsCleanUp {
 	* @access   public
 	* @return   void
 	*/
-	function LogsCleanUp() {
-		$this->connected =& $connected;
+	function LogsCleanUp($connected) {
+		$this->connected = $connected;
 	}
 	/**
 	* Executes the log/path deletion
@@ -109,7 +109,7 @@ class LogsCleanUp {
 				the WHERE clause. 
 				
 				$sql = "DELETE FROM $tbl ORDER BY time LIMIT $del_rows";
-				$res = mysql_query($sql);
+				$res = mysqli_query($this->connected,$sql);
 				---------------------------------------------------------------------------- */
 			}
 			
@@ -144,7 +144,7 @@ class LogsCleanUp {
 				$from_time = @mysqli_result($res,0,'time');
 				if ($from_time) {
 					$sql = "UPDATE $tbl SET path = NULL WHERE path >= '' AND time < $from_time";
-					mysql_query($sql);
+					mysqli_query($this->connected,$sql);
 				}
 			}
 			

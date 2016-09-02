@@ -25,8 +25,8 @@ include INC_HEAD;
 
 /* number of useraccounts */
 $sql = "SELECT count(*) FROM ".PPHL_TBL_USERS;
-$res = mysql_query($sql);
-$useraccounts = @mysql_result($res,0,0);
+$res = mysqli_query($connected,$sql);
+$useraccounts = @mysqli_result($res,0,0);
 
 
 
@@ -92,8 +92,8 @@ $total_adm_tblsize = getSerializedCache('admin_tblsize');
 $total_adm_tblsize = @$total_adm_tblsize[1];
 
 $sql = "SELECT sum(tblsize) FROM ".PPHL_TBL_USERS;
-$res = mysql_query($sql);
-$total_usr_tblsize = mysql_result($res,0,0);
+$res = mysqli_query($connected,$sql);
+$total_usr_tblsize = mysqli_result($res,0,0);
 echo $strUser.' '.$strDatabase.' '.$strSize.': <b>'.formatPrettyByte($total_usr_tblsize).'</b><br />';
 echo $strAdmin.' '.$strDatabase.' '.$strSize.': <b>'.formatPrettyByte($total_adm_tblsize).'</b>';
 ?>
