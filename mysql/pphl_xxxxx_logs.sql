@@ -9,7 +9,7 @@ CREATE TABLE pphl_xxxxx_logs (
    userid int(5) unsigned DEFAULT NULL,
    hostname varchar(150) NOT NULL DEFAULT '',
    tld varchar(8) NOT NULL DEFAULT '',
-   ip varchar(15) NOT NULL DEFAULT '',
+   ip varchar(39) NOT NULL DEFAULT '',
    entryid INT UNSIGNED DEFAULT NULL,
    path TEXT,
    referer varchar(255) DEFAULT NULL,
