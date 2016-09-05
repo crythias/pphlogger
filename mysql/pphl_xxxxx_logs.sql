@@ -12,7 +12,7 @@ CREATE TABLE pphl_xxxxx_logs (
    ip varchar(39) NOT NULL DEFAULT '',
    entryid INT UNSIGNED DEFAULT NULL,
    path TEXT,
-   referer varchar(255) DEFAULT NULL,
+   referer varchar(512) DEFAULT NULL,
    seareng varchar(60) NOT NULL DEFAULT '',
    agentid INT UNSIGNED NOT NULL DEFAULT '0',
    res_w INT UNSIGNED NOT NULL DEFAULT '0',
