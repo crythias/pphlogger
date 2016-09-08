@@ -12,7 +12,10 @@ $view = 'stats';
 include INC_HEAD;
 include CFG_LANG_PATH.$lang.'_tld.inc.'.CFG_PHPEXT;
 
-$edit = htmlspecialchars ( $edit);
+// fixing XSS problem
+if (isset($edit)){
+	$edit = htmlspecialchars ($edit);
+}
 
 /* edit mpdl section
    ************************************************************************************/
