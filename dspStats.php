@@ -12,6 +12,8 @@ $view = 'stats';
 include INC_HEAD;
 include CFG_LANG_PATH.$lang.'_tld.inc.'.CFG_PHPEXT;
 
+$edit = htmlspecialchars ( $edit);
+
 /* edit mpdl section
    ************************************************************************************/
 if (isset($edit) && !$guest) {

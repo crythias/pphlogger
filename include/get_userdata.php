@@ -18,7 +18,7 @@ if (!defined('__GOT_USERDATA__')){
 	$user_fields = getTableFields(PPHL_TBL_USERS);
 	
 	/* assign the user's values */
-	$id = mysql_escape_string($id);
+	$id = mysqli_escape_string($connected,$id);
 	$sql = "SELECT * FROM ".PPHL_TBL_USERS." WHERE id='$id' OR username='$id'";
 	$res = mysqli_query($connected, $sql);
 	if (mysqli_num_rows($res)) {
