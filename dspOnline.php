@@ -59,7 +59,7 @@ include INC_ONLINELIST;
 	     . "WHERE L.t_reload > ".($curr_gmt_time-$timeout_var)." AND L.agentid = A.id "
 	     . "ORDER BY t_reload DESC, logid DESC";
 	
-	$res = mysql_query($sql);
+	$res = mysqli_query($connected,$sql);
 	// show the whole log-list:
 	include INC_LOGLIST;
 

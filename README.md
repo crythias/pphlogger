@@ -10,7 +10,8 @@ And added support for IPv6 and new browser/OS detection.
 
 PHPlogger has the next features:
 
-user sign-up page that allows users to create accounts
+<ul>
+<li>user sign-up page that allows users to create accounts
 logs host/ip (proxy & 'real' IP), referrer, agent, time&date, resolution&color, online-time, pageimpressions
 show traceroutes
 avoid multiple hits by the same user

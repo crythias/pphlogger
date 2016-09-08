@@ -8,8 +8,8 @@ include INC_GETUSERDATA;
 if ($password == $pw) {
 	$count = abs(chop($new_hits));
 	$sql= "UPDATE ".PPHL_TBL_USERS." SET hits='".$count."' where id='".$id."'";
-	$res = mysql_query($sql);
-	echo mysql_error();
+	$res = mysqli_query($connected,$sql);
+	echo mysqli_error();
 }
 
 Header("Location: $HTTP_REFERER");

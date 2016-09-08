@@ -6,7 +6,7 @@ include INC_GETUSERDATA;
 
 if ($password == $pw) {
 	$sql = "UPDATE ".PPHL_TBL_USERS." SET cssid = $N_css WHERE id = $id";
-	$res = mysql_query($sql);
+	$res = mysqli_query($connected,$sql);
 	setcookie("css_style", "", time() - 3600);
 	Header("Location: $HTTP_REFERER");
 	exit;

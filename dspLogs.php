@@ -23,7 +23,7 @@ if (isset($enable_del) && !$guest) {
 		$qry_in .= ')';
 		$sql = "DELETE FROM ".$tbl_logs." WHERE logid IN $qry_in";
 		$res = mysqli_query($connected,$sql);
-		$affected_rows = mysql_affected_rows();
+		$affected_rows = mysqli_affected_rows($connected);
 		if ($affected_rows) {
 			$sql = "UPDATE ".PPHL_TBL_USERS." SET hits = hits-$affected_rows WHERE id = $id";
 			$res = mysqli_query($connected,$sql);

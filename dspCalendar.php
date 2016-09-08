@@ -16,7 +16,7 @@ include MOD_CALENDAR;
  */
 if (@$action == 'cleanup' && $password == $pw) {
 	$sql = "DELETE FROM ".PPHL_TBL_CACHE." WHERE id=$id AND type='$uniq_type'";
-	$res = mysql_query($sql);
+	$res = mysqli_query($connected,$sql);
 }
 
 /* reload visitors-per-hour

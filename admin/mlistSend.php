@@ -24,32 +24,32 @@ include PPHL_SCRIPT_PATH."main_location.inc";
 if(@$action == 'send') {
 	
 	$sql = "DELETE FROM ".PPHL_TBL_CACHE." WHERE id=0 AND (type = 'mlist_from' OR type = 'mlist_subj' OR type = 'mlist_body')";
-	$res = mysql_query($sql);
+	$res = mysqli_query($connected,$sql);
 	
 	$sql = "INSERT INTO ".PPHL_TBL_CACHE." (type,cache,time) VALUES ('mlist_from','".addslashes($mlist_from)."',$curr_gmt_time)";
-	$res = mysql_query($sql);
+	$res = mysqli_query($connected,$sql);
 	$sql = "INSERT INTO ".PPHL_TBL_CACHE." (type,cache,time) VALUES ('mlist_subj','".addslashes($mlist_subj)."',$curr_gmt_time)";
-	$res = mysql_query($sql);
+	$res = mysqli_query($connected,$sql);
 	$sql = "INSERT INTO ".PPHL_TBL_CACHE." (type,cache,time) VALUES ('mlist_body','".addslashes($mlist_body)."',$curr_gmt_time)";
-	$res = mysql_query($sql);
+	$res = mysqli_query($connected,$sql);
 }
 
 if(!isset($last_sent)) $last_sent = 0;
 
 /* recall the same SQL statement and select all users who are beeing mailed */
 $sql = "SELECT cache FROM ".PPHL_TBL_CACHE." WHERE id=0 AND type='mlist_sql'";
-$res = mysql_query($sql);
-$mlist_sql  = stripslashes(mysql_result($res,0,0));
+$res = mysqli_query($connected,$sql);
+$mlist_sql  = stripslashes(mysqli_result($res,0,0));
 $mlist_sql .= " LIMIT $last_sent,$mail_pack";
-$mlist_res = mysql_query($mlist_sql);
+$mlist_res = mysqli_query($connected,$mlist_sql);
 
-	while ($row = mysql_fetch_array($mlist_res)) {
+	while ($row = mysqli_fetch_array($mlist_res)) {
 		
 		$mlist_to = emailAdressString($row['email'],$row['username'],',');
 		
 		//get all email information
-		$email_data = mysql_query("SELECT type,cache FROM ".PPHL_TBL_CACHE." WHERE id=0 AND type LIKE 'mlist%'");
-		while ($email_row = @mysql_fetch_array($email_data)) {
+		$email_data = mysqli_query($connected,"SELECT type,cache FROM ".PPHL_TBL_CACHE." WHERE id=0 AND type LIKE 'mlist%'");
+		while ($email_row = @mysqli_fetch_array($email_data)) {
 			${$email_row['type']} = stripslashes($email_row['cache']);
 		}
 		

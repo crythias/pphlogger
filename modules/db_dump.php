@@ -46,9 +46,9 @@ function my_handler($sql_insert)
     }
 }
 
-$tables = mysql_list_tables(PPHL_DB_NAME);
+$tables = mysqli_list_tables(PPHL_DB_NAME);
 
-$num_tables = @mysql_numrows($tables);
+$num_tables = @mysqli_numrows($tables);
 
 $i = 0;
 print "# PPhlogger ".PPHLOGGER_VERSION." MySQL-Dump".CRLF_C;
@@ -58,7 +58,7 @@ print "# Host: ".PPHL_DB_HOST." Database: ".PPHL_DB_NAME.CRLF_C;
 
 while($i < $num_tables)
 { 
-	$table = mysql_tablename($tables, $i);
+	$table = mysqli_tablename($connected,$tables, $i);
 
 	if (strstr($table,$id)) {
 		print $crlf;

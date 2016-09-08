@@ -16,15 +16,15 @@ define('PPHL_SCRIPT_PATH', '../');
 include PPHL_SCRIPT_PATH."main_location.inc";
 
 $sql = "SELECT id,agent FROM ".PPHL_TBL_AGENTS;
-$res = mysql_query($sql);
-while ($row = mysql_fetch_array($res)) {
+$res = mysqli_query($connected,$sql);
+while ($row = mysqli_fetch_array($res)) {
 	$new_agt = extract_agent($row['agent']);
 	if (is_array($new_agt)) {
 		$sql = "UPDATE ".PPHL_TBL_AGENTS." "
 		     . "SET browser = '".$new_agt[0]."', version = ".$new_agt[1].", "
 			 . "version_st = '".$new_agt[2]."', system = '".$new_agt[3]."' "
 		     . "WHERE id = ".$row['id'];
-		mysql_qry($sql, false);
+		mysqli_query($connected,$sql, false);
 	}
 }
 

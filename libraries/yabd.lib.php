@@ -19,6 +19,8 @@ if (!defined('__LIB_YABD__')) {
 
 $arr_brows = Array (
 	'IE'   => 'Internet Explorer',
+	'MSIE'  => 'Internet Explorer',
+	'CHROME'=> 'Chrome',
 	'NS'   => 'Netscape',
 	'MZ'   => 'Mozilla',
 	'OP'   => 'Opera',
@@ -38,6 +40,14 @@ $arr_sys = Array (
 	'WinXP'     => 'Windows XP',
 	'WinNT'     => 'Windows NT',
 	'WinNT4.0'  => 'Windows NT4',
+	'WinNT5.0'  => 'Windows 2000',
+	'WinNT5.1'  => 'Windows XP',
+	'WinNT5.2'  => 'Windows XP',
+	'WinNT6.0'  => 'Windows Vista',
+	'Win7'  => 'Windows 7',
+	'WinNT6.2'  => 'Windows 8',
+	'Win8.1'  => 'Windows 8.1',
+	'Win10' => 'Windows 10',
 	'Mac'       => 'Mac OS',
 	'MacOSX'    => 'Mac OS X'
 );
@@ -50,6 +60,7 @@ function extract_agent($agt) {
 	        preg_match("/(opera)([0-9]{1,2}.[0-9]{1,3}){0,1}/i",$agt,$st_regs))             {$st_brows = "OP";      $fl_ver = $st_regs[2];}
 	else if(preg_match("/(konqueror)\/([0-9]{1,2}.[0-9]{1,3})/i",$agt,$st_regs) ||
 	        preg_match("/(konqueror)\/([0-9]{1,2})/i",$agt,$st_regs))                         {$st_brows = "KONQ";    $fl_ver = $st_regs[2]; $st_sys = "Linux";}
+	else if(preg_match("/(Chrome)\/([0-9]{1,2}.[0-9]{1,2}.[0-9]{1,2})/i",$agt,$st_regs))      {$st_brows = "CHROME";    $st_ver = $st_regs[2];}
 	else if(preg_match("/(NetPositive)\/([0-9]{1,2}.[0-9]{1,2}.[0-9]{1,2})/i",$agt,$st_regs)) {$st_brows = "NPOS";    $st_ver = $st_regs[2];}
 	else if(preg_match("/(iCab)\/([0-9]{1,2}.[0-9]{1,3})/i",$agt,$st_regs))                   {$st_brows = "ICAB";    $fl_ver = $st_regs[2];}
 	else if(preg_match("/(lynx)\/([0-9]{1,2}.[0-9]{1,2}.[0-9]{1,2})/i",$agt,$st_regs) )       {$st_brows = "LX";      $st_ver = $st_regs[2];}
@@ -69,10 +80,14 @@ function extract_agent($agt) {
 	else if(preg_match("/(googlebot)\/([0-9]{1,2}.[0-9]{1,3})/i",$agt,$st_regs))              {$st_brows = "Google";  $fl_ver = $st_regs[2];}
 	else {$st_brows = '';}
 	
-	
 	/* System detection */
 	if     (preg_match("/linux/i",$agt))                                                     {$st_sys = "Linux";}
 	else if(preg_match("/Win 9x 4.90/i",$agt))                                               {$st_sys = "WinMe";}
+	else if(preg_match("/Windows NT 6.0/i",$agt))                                            {$st_sys = "WinVista";}
+	else if(preg_match("/Windows NT 6.1/i",$agt))                                            {$st_sys = "Win7";}
+	else if(preg_match("/Windows NT 6.2/i",$agt))                                            {$st_sys = "Win8";}
+	else if(preg_match("/Windows NT 6.3/i",$agt))                                            {$st_sys = "Win8.1";}
+	else if(preg_match("/Windows NT 10.0/i",$agt))                                           {$st_sys = "Win10";}
 	else if(preg_match("/win32/i",$agt))                                                     {$st_sys = "Win";}
 	else if(preg_match("/windows 2000/i",$agt))                                              {$st_sys = "Win2000";}
 	else if((preg_match("/(win)([9][5,8])/i",$agt,$st_regs)) || 
@@ -116,4 +131,3 @@ function extract_agent($agt) {
 define('__LIB_YABD__', 1);
 }
 ?>
-

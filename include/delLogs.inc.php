@@ -89,7 +89,7 @@ class LogsCleanUp {
 			if ($dellog_lim > 0) {
 				$sql = "SELECT time FROM $tbl ORDER BY time DESC LIMIT $dellog_lim,1";
 				$res = mysqli_query($this->connected,$sql);
-				$from_time = @mysql_result($res,0,'time');
+				$from_time = @mysqli_result($res,0,'time');
 				if ($from_time) {
 					$sql = "DELETE FROM $tbl WHERE time < $from_time";
 					mysqli_query($this->connected,$sql);

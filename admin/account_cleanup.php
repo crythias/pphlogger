@@ -5,16 +5,16 @@ define('PPHL_SCRIPT_PATH', '../');
 include PPHL_SCRIPT_PATH."main_location.inc";
 
 $sql = "SELECT id FROM ".PPHL_TBL_USERS." WHERE del_usr = 1";
-$res = mysql_query($sql);
-while ($row = mysql_fetch_array($res)) {
+$res = mysqli_query($connected,$sql);
+while ($row = mysqli_fetch_array($res)) {
 	$id = $row['id'];
 	$sql = "DELETE FROM ".PPHL_TBL_USERS." WHERE id = ".$id;
-	mysql_query($sql);
-	if (mysql_affected_rows()) {
+	mysqli_query($connected,$sql);
+	if (mysqli_affected_rows()) {
 		$sql = "DROP TABLE IF EXISTS ".PPHL_DB_PREFIX.$id.$tbl_logs.", ".PPHL_DB_PREFIX.$id.$tbl_mpdl;
-		mysql_query($sql);
+		mysqli_query($connected,$sql);
 		$sql = "DELETE FROM ".PPHL_TBL_CACHE." WHERE id = ".$id;
-		mysql_query($sql);
+		mysqli_query($connected,$sql);
 	}
 }
 

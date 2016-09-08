@@ -27,7 +27,7 @@ if (isset($conf)) {
 }
 
 $sql = "UPDATE ".PPHL_TBL_USERS." SET ".$set_mysql.", last_access = last_access WHERE id = ".$id;
-$res = mysql_query($sql);
+$res = mysqli_query($connected,$sql);
 
 Header("Location: ".$adm_view[2]);
 exit;

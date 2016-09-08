@@ -133,8 +133,8 @@ if (isset($mpdl)) {
 }
 
 if (isset($show_sql)) {
-	$res = mysql_query($show_sql);
-	$dayhits = @mysql_fetch_array($res);
+	$res = mysqli_query($connected,$show_sql);
+	$dayhits = @mysqli_fetch_array($res);
 	if (isset($dayhits[0])) $show_txt = $dayhits[0];
 	else                    $show_txt = 0;
 }
@@ -144,9 +144,9 @@ if (isset($show_sql)) {
 if (isset($show_sql2[0])) {
 	unset($out);
 	for($i=0;$i<7;$i++){
-		$res = mysql_query($show_sql2[$i]);
+		$res = mysqli_query($connected,$show_sql2[$i]);
 		unset($array);
-		$array = @mysql_fetch_array($res);
+		$array = @mysqli_fetch_array($res);
 		if($i==4||$i==5) $out[] = $array[0];
 		else{
 			for($j=0;$j<2;$j++){

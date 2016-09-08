@@ -67,9 +67,9 @@
 					
 					case 'css':
 						$sql2 = "SELECT id,css,userid FROM ".PPHL_TBL_CSS." WHERE userid = 0 ORDER BY css ASC";
-						$res2 = mysql_query($sql2);
+						$res2 = mysqli_query($connected,$sql2);
 						echo "<select class=\"myInput\" name=\"fields[".$SetupSettings[$i][$j]."]\">";
-						while ($row2 = @mysql_fetch_array($res2)) {
+						while ($row2 = @mysqli_fetch_array($res2)) {
 							echo "<option ";
 							if (${$SetupSettings[$i][$j]} == $row2['id']) echo "selected=\"selected\" ";
 							echo "value=\"".$row2['id']."\">".$row2['css']."</option>\n";
