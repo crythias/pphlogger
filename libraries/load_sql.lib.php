@@ -83,7 +83,7 @@ function exec_sql_lines($sql_file, $old_string = '', $new_string = '') {
 		if (get_magic_quotes_runtime() == 1) $sql_query = stripslashes($sql_query);
 		/* replace old_string with new_string if they are set */
 		if($old_string != '') {
-			$sql_query = ereg_replace($old_string,$new_string,$sql_query);
+			$sql_query = preg_replace('/'.$old_string.'/',$new_string,$sql_query);
 		}
 	}
 	$sql_query = trim($sql_query);

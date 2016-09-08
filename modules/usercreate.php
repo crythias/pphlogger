@@ -22,7 +22,7 @@ $username = str_replace (" ", "_", trim($username));
  * - length must be 30 characters or less
  * - username has to contain at least one character Aa-Zz
  */
-if (!ereg("^[A-Za-z0-9_.-]{1,30}$",$username) || !ereg("[A-Za-z]",$username)) {
+if (!preg_match("/^[A-Za-z0-9_.-]{1,30}$/",$username) || !preg_match("/[A-Za-z]/",$username)) {
 	Header("Location: $returnURL?msg=badusername");
 	exit;
 }

@@ -25,7 +25,7 @@ if (!is_int($num/3)) $num_per_col = ceil($num/3);
 else $num_per_col = $num/3;
 for($i=0; $i < $num; $i++) {
 	if (($i == $num_per_col) || ($i == 2*$num_per_col)) echo "</td><td nowrap=\"nowrap\" valign=\"top\">\n";
-	echo "<a class='invertLink'>".strtolower(eregi_replace('.ttf','',$ttf_array[$i])).":</a><br />";
+	echo "<a class='invertLink'>".strtolower(preg_replace('/.ttf/i','',$ttf_array[$i])).":</a><br />";
 	echo "<a href='".$usr_view[6]."?font=".$ttf_array[$i]."'>";
 	echo "<img border=\"0\" src=\"".MOD_IMAGETXT."?ttf_demo=".$ttf_array[$i]."&id=$username&show_txt=$show_txt\" alt=\"choose this font\" /></a><br /><br />\n";
 }

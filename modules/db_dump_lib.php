@@ -28,7 +28,7 @@ function get_table_def($table, $crlf)
             $schema_create .= " $row[Extra]";
         $schema_create .= ",$crlf";
     }
-    $schema_create = ereg_replace(",".$crlf."$", "", $schema_create);
+    $schema_create = preg_replace("/,".$crlf."$/", "", $schema_create);
     $result = mysqli_query($connected,"SHOW KEYS FROM $table") or mysql_die();
     while($row = mysqli_fetch_array($result))
     {
@@ -85,7 +85,7 @@ function get_table_content($table, $handler, $where)
             else
                 $schema_insert .= " '',";
         }
-        $schema_insert = ereg_replace(",$", "", $schema_insert);
+        $schema_insert = preg_replace("/,$/", "", $schema_insert);
         $schema_insert .= ")";
         $handler(trim($schema_insert));
 		$i++;

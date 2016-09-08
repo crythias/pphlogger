@@ -391,11 +391,11 @@ function Get()
  
 function ValidEmail($address) { // modified !!
 	// extract email from "name" <email>
-	if( ereg( ".*<(.+)>", $address, $regs ) ) {
+	if( preg_match( "/.*<(.+)>/", $address, $regs ) ) {
 		$address = $regs[1];
 	}
 	// validate email address
-	if (eregi("^[0-9a-z_]([-_.]?[0-9a-z])*@[0-9a-z]([-.]?[0-9a-z])*\\.[a-z]{2,6}$", $address))
+	if (preg_match("/^[0-9a-z_]([-_.]?[0-9a-z])*@[0-9a-z]([-.]?[0-9a-z])*\\.[a-z]{2,6}$/i", $address))
 		return true;
 	else
 		return false; 
