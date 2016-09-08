@@ -24,7 +24,7 @@ header('Content-Type: text/html; charset=' . $strCharset);
 <meta name="description" content="Power Phlogger - log and counter hosting tool" />
 <meta name="PHP Version" content="<?php echo phpversion(); ?>" />
 <meta name="MYSQL Version" content="<?php echo mysqlversion(); ?>" />
-<meta name="Server Software" content="<?php echo @$HTTP_SERVER_VARS["SERVER_SOFTWARE"]; ?>" />
+<meta name="Server Software" content="<?php echo @$SERVER["SERVER_SOFTWARE"]; ?>" />
 <meta name="keywords" content="PHP, Phlogger, Power Phlogger, PPhlogger, Philip, Philip Iezzi, Counter, visitor tracking, visitor analysis, web statistics, Free-counter, free counter, script, counter hosting, opensource, open-source, gnu, GPL, website statistics, statistics, php-scripts, php-script, tracker, logger, log, track, Zurich, Z&uuml;rich, Fifi, Pipo, Philippo, freelogger, freelogger.com, logging tool, Apache, Linux, mySQL, free, Rocco, soraxis" />
 <link href="<?php echo CSS_GETCSS; ?>?this_css=<?php echo $cssid; ?>" rel="STYLESHEET" type="text/css" />
 <?php

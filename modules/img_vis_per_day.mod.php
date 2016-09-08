@@ -17,8 +17,9 @@ function module_img_visitors_per_day($uniq_type = 'log_day_mo', $yyyymm = 0) {
 	$year  = substr($cache[2],0,4);
 	$month = substr($cache[2],4,2);
 	$data  = $cache[1];
-	
+
 	$img_format = get_gd_type();
+
 	$lvc_base_img_per_day      = 10;
 	$lvc_display_cache_delay   =  1;  // 0 | 1
 	
@@ -33,7 +34,6 @@ function module_img_visitors_per_day($uniq_type = 'log_day_mo', $yyyymm = 0) {
 	
 	// image creation
 	$image  = imagecreate($width, $height);
-	
 	// colors
 	$color_white    = imagecolorallocate($image, 0xFF, 0xFF, 0xFF);
 	$color_black    = imagecolorallocate($image, 0x00, 0x00, 0x00);

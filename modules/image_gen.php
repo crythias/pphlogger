@@ -11,7 +11,6 @@ if (!$visible || $showme == 'n') {
 	readfile(CFG_IMG_PATH.'clear.gif');
 } else {
 	$img_format = get_gd_type();
-	
 	if (!isset($show_txt)) $show_txt = $hits;
 	
 	// include the color array

@@ -147,7 +147,7 @@ if(defined('USR_OS') && USR_OS == 'Win') {
 if (!empty($_SERVER))
 	$SERVER_SOFTWARE = @$_SERVER['SERVER_SOFTWARE'];
 else if (!empty($HTTP_SERVER_VARS))
-	$SERVER_SOFTWARE = @$HTTP_SERVER_VARS['SERVER_SOFTWARE'];
+	$SERVER_SOFTWARE = @$_SERVER['SERVER_SOFTWARE'];
 
 if (preg_match("/(Microsoft-IIS)\/([0-9]{1,2}.[0-9]{1,3})/i",$SERVER_SOFTWARE,$http_srv)) {
 	define('HTTP_SRV'   , 'IIS');
