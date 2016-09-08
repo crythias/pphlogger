@@ -79,7 +79,7 @@ if (!defined('__GOT_USERDATA__')){
 		/* returns a string with backslashes before characters that need to be quoted in database queries */
 		$referer = addslashes_mq($referer);
 	} else { // script called by php
-		$url = addHTTP($HTTP_HOST.$PHP_SELF);
+		$url = addHTTP($HTTP_HOST.$REQUEST_URI);
 		if (isset($HTTP_REFERER)) $referer = $HTTP_REFERER;
 		if (!isset($referer)) $referer = ''; // in case referrer was not set till now
 	}
