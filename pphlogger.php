@@ -74,7 +74,12 @@ if (!$url) { // "real" URL was not found in the URL-list
     $url_error = (!$url) ? true : false; // no error if the redir-URL was found in the list
 } else {
     $url_error = false; // no dumb user, everything correct! :)
+    // if referal is to long ot fit in the database, make the referal shorter
+    if (strlen($referer) > 510 ){$referer=substr($referer,0,510);}
 }
+
+
+
 
 /*
  * Make sure we need to log the visitor...
