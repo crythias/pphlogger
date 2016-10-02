@@ -34,7 +34,7 @@ if (isset($enable_del) && !$guest) {
 <?php
 $arr_engines = load_engines();
 
-	while ($row = @mysql_fetch_array($res)) {
+	while ($row = @mysqli_fetch_array($res)) {
 		$ip = $row['ip'];
 		$hostname = $row['hostname'];
 		if ($hostname == '') $hostname = $ip;

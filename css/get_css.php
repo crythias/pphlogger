@@ -13,10 +13,12 @@ include INC_COLORARRAY;
 $css_file = 'common.css';
 $css_style = fread($fp = fopen($css_file, 'r'), filesize($css_file));
 fclose($fp);
+//var_dump($css_style);die;
 while(preg_match('/(@.+@)/U',$css_style, $matches) == TRUE){
 	$matchvar = str_replace('@','',$matches[1]);
 	$css_style = str_replace($matches[1], getHEX($$matchvar), $css_style);
 }
+
 
 header("Content-type: text/css");
 header("Pragma: no-cache");

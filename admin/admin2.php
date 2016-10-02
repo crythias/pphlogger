@@ -17,10 +17,10 @@ switch(@$action) {
 	case 'orderby':
 		if ($useraccount_ord == $order) {
 			$new_desc = ($useraccount_ord_desc) ? 'false' : 'true';
-			mysql_query("UPDATE ".PPHL_TBL_SETTINGS." SET value = '$new_desc' WHERE setting = 'useraccount_ord_desc'");
+			mysqli_query($connected,"UPDATE ".PPHL_TBL_SETTINGS." SET value = '$new_desc' WHERE setting = 'useraccount_ord_desc'");
 		} else {
-			mysql_query("UPDATE ".PPHL_TBL_SETTINGS." SET value = '$order' WHERE setting = 'useraccount_ord'");
-			mysql_query("UPDATE ".PPHL_TBL_SETTINGS." SET value = 'false' WHERE setting = 'useraccount_ord_desc'");
+			mysqli_query($connected,"UPDATE ".PPHL_TBL_SETTINGS." SET value = '$order' WHERE setting = 'useraccount_ord'");
+			mysqli_query($connected,"UPDATE ".PPHL_TBL_SETTINGS." SET value = 'false' WHERE setting = 'useraccount_ord_desc'");
 		}
 		Header("Location: $PHP_SELF");
 		exit;
@@ -59,11 +59,11 @@ function ascdesc_img($ord) {
    - if the account was not confirmed during the [cleanup_lim] hrs
    - if the account wasn't used during the last [cleanup_old] days  */
 $sql = "UPDATE ".PPHL_TBL_USERS." SET del_usr = 0, access_diff = $curr_gmt_time-last_access";
-$res = mysql_query($sql);
+$res = mysqli_query($connected,$sql);
 $sql = "UPDATE ".PPHL_TBL_USERS." SET del_usr = 1 "
      . "WHERE access_diff > ".($cleanup_old*24*60*60)." "
 	 . "OR (conf = 0 AND ($curr_gmt_time-date_start) > ".($cleanup_lim*60*60).")";
-$res = mysql_query($sql);
+$res = mysqli_query($connected,$sql);
 
 
 /*
@@ -155,8 +155,8 @@ $sql .= ($useraccount_ord_desc) ? " DESC " : " ASC ";
 if ($sql_sear == '' && $useraccount_lim > 0) {
 	$sql .= (isset($offset)) ? "LIMIT ".$offset.",".$useraccount_lim : "LIMIT ".$useraccount_lim;
 }
-$res = mysql_query($sql);
-while ($row = @mysql_fetch_array($res)) {
+$res = mysqli_query($connected,$sql);
+while ($row = @mysqli_fetch_array($res)) {
 	echo userListRow($row);
 	$rowcnt++;
 }
@@ -176,10 +176,10 @@ if ($sql_sear == '') { // do not display unconfirmed and ready-to-delete if sear
 	$sql = $sql_base
 		 . "WHERE conf = 0 AND del_usr = 0 "
 		 . "ORDER BY del_usr DESC, conf, id";
-	$res = mysql_query($sql);
-	if(@mysql_affected_rows()) {
+	$res = mysqli_query($connected,$sql);
+	if(@mysqli_affected_rows()) {
 		echo "<tr><td colspan=\"$cust_colspan\">&nbsp;</td><tr><tr><td colspan=\"$cust_colspan\" class=\"color3\">unconfirmed:</td></tr>";
-		while ($row = @mysql_fetch_array($res)) {
+		while ($row = @mysqli_fetch_array($res)) {
 			echo userListRow($row);
 			$rowcnt++;
 		}
@@ -191,10 +191,10 @@ if ($sql_sear == '') { // do not display unconfirmed and ready-to-delete if sear
 	$sql = $sql_base
 		 . "WHERE del_usr = 1 "
 		 . "ORDER BY del_usr DESC, conf, id";
-	$res = mysql_query($sql);
-	if(@mysql_affected_rows()) {
+	$res = mysqli_query($connected,$sql);
+	if(@mysqli_affected_rows()) {
 		echo "<tr><td colspan=\"$cust_colspan\">&nbsp;</td></tr><tr><td colspan=\"$cust_colspan\" class=\"color3\">$strReadyDelete:</td></tr>";
-		while ($row = @mysql_fetch_array($res)) {
+		while ($row = @mysqli_fetch_array($res)) {
 			echo userListRow($row);
 			$rowcnt++;
 		}

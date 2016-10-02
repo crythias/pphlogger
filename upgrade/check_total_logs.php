@@ -18,8 +18,8 @@ $timer_start = getmicrotime();
 
 $totalrows = 0;
 $sql = "SELECT id,username FROM ".PPHL_TBL_USERS." ORDER BY id ASC";
-$res = mysql_query($sql);
-while ($row = mysql_fetch_array($res)) {
+$res = mysqli_query($connected,$sql);
+while ($row = mysqli_fetch_array($res)) {
 	$id = $row['id'];
 	$this_tbl_logs    = PPHL_DB_PREFIX.$id.$tbl_logs;
 	$totalrows = $totalrows + get_tbltotalrows($this_tbl_logs);

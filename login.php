@@ -20,8 +20,8 @@
 include "main_location.inc";
 
 if (defined('PHP_SESS')) {
-	session_unregister("password");
-	session_unregister("username");
+	unset($_SESSION["password"]);
+	unset($_SESSION["username"]);
 } else {
 	setcookie("username", "", time() - 3600);
 	setcookie("password", "", time() - 3600);
@@ -34,20 +34,20 @@ if (isset($admpw)) {
 	if (isset($pw) && $js_onoff == 'off') {
 		$password = md5($pw);
 	} else {
-		$password = (!empty($_POST)) ? $_POST['md5_pw'] : $HTTP_POST_VARS['md5_pw'];
+		$password = (!empty($_POST)) ? $_POST['md5_pw'] : $_POST['md5_pw'];
 	}
 }
 if (isset($usr))       $username = $usr;
 if (!isset($password)) $password = $pw;
 
 if (defined('PHP_SESS')) {
-	session_register("password");
-	session_register("username");
+//	session_register("password");
+//	session_register("username");
 //	$GLOBALS['HTTP_SESSION_VARS']['username'] = $username;
 //	$GLOBALS['HTTP_SESSION_VARS']['password'] = $password;
 	if (!@ini_get('register_globals')) {
-		$HTTP_SESSION_VARS['username'] = $username;
-		$HTTP_SESSION_VARS['password'] = $password;
+		$_SESSION['username'] = $username;
+		$_SESSION['password'] = $password;
 	}
 } else {
 	setcookie("username", $username);

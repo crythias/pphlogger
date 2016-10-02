@@ -18,7 +18,7 @@ if (!empty($selected_tbl) && !$guest) {
 	}
 	$qry_in .= ')';
 	$sql = "UPDATE $tbl_mpdl SET enabled = 0 WHERE id IN $qry_in";
-	$res = mysql_query($sql);
+	$res = mysqli_query($connected,$sql);
 /*
  * moving mpdl's
  */
@@ -28,23 +28,23 @@ if (!empty($selected_tbl) && !$guest) {
 	if ($edit_to != 'delete') {
 		$sql = "SELECT min(since),sum(hits) FROM $tbl_mpdl "
 		     . "WHERE (id = $edit_from OR id = $edit_to) AND type = '$edit_type'";
-		$res = mysql_query($sql);
-		$min_since = mysql_result($res, 0, 0);
-		$sum_hits  = mysql_result($res, 0, 1);
+		$res = mysqli_query($connected,$sql);
+		$min_since = mysqli_result($res, 0, 0);
+		$sum_hits  = mysqli_result($res, 0, 1);
 		
 		/* update the 'to' row */
 		$sql = "UPDATE $tbl_mpdl SET hits = $sum_hits, since = $min_since "
 		     . "WHERE id = $edit_to AND type = '$edit_type'";
-		mysql_query($sql);
+		mysqli_query($connected,$sql);
 	}
 	
 	/* disable (not delete!) the 'from' row */
 	$sql = "UPDATE $tbl_mpdl SET enabled = 0 WHERE id = $edit_from AND type = '$edit_type'";
-	mysql_query($sql);
+	mysqli_query($connected,$sql);
 	
 	/* change all entrypoint id's to the new mpdl */
 	$sql = "UPDATE $tbl_logs SET entryid = $edit_to WHERE entryid = $edit_from";
-	mysql_query($sql);
+	mysqli_query($connected,$sql);
 }
 
 Header("Location: $HTTP_REFERER");

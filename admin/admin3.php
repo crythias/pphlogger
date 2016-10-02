@@ -35,9 +35,9 @@ $ip_sql = "SELECT P.id,"
 		. "WHERE P.id = PU.id "
 		. "ORDER BY P.t_reload DESC";
 $ip_sql .= (isset($offset)) ? " LIMIT ".$offset.",".$show_cust : " LIMIT ".$show_cust;
-$res = mysql_query($ip_sql);
+$res = mysqli_query($connected,$ip_sql);
 $i = 3; $m = 1;
-while ($row = @mysql_fetch_array($res)) {
+while ($row = @mysqli_fetch_array($res)) {
 	$hostname = ($row[5] == '') ? $row[4] : $row[5];
 	$ArrCust[$i][0] = '[<a id="blacklink" target="_blank" href="'.USR_LOGIN.'?usr='.$row[0].'&admpw='.$row[8].'">'.$row[0].'</a>]'
 	                . ' - <a id="blacklink" href="mailto:'.$row[9].'">'.$row[7].'</a>&nbsp;';

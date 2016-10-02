@@ -18,12 +18,13 @@ if (!defined('__GOT_USERDATA__')){
 	$user_fields = getTableFields(PPHL_TBL_USERS);
 	
 	/* assign the user's values */
+	$id = mysqli_escape_string($connected,$id);
 	$sql = "SELECT * FROM ".PPHL_TBL_USERS." WHERE id='$id' OR username='$id'";
-	$res = mysql_query($sql);
-	if (mysql_num_rows($res)) {
+	$res = mysqli_query($connected, $sql);
+	if (mysqli_num_rows($res)) {
 		$cnt_user_fields = count($user_fields);
 		for($i = 0; $i < $cnt_user_fields; $i++) {
-			${$user_fields[$i]} = mysql_result($res, 0, $i); //get all user vars
+			${$user_fields[$i]} = mysqli_result($res, 0, $i); //get all user vars
 		}
 	} else {
 		if (isset($redir_view)) {
@@ -78,7 +79,7 @@ if (!defined('__GOT_USERDATA__')){
 		/* returns a string with backslashes before characters that need to be quoted in database queries */
 		$referer = addslashes_mq($referer);
 	} else { // script called by php
-		$url = addHTTP($HTTP_HOST.$PHP_SELF);
+		$url = addHTTP($HTTP_HOST.$REQUEST_URI);
 		if (isset($HTTP_REFERER)) $referer = $HTTP_REFERER;
 		if (!isset($referer)) $referer = ''; // in case referrer was not set till now
 	}

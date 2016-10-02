@@ -24,8 +24,8 @@ include PPHL_SCRIPT_PATH."main_location.inc";
 $new_res = '';
 
 $sql = "SELECT id FROM ".PPHL_TBL_USERS;
-$res = mysql_query($sql);
-while ($row = mysql_fetch_array($res)) {
+$res = mysqli_query($connected,$sql);
+while ($row = mysqli_fetch_array($res)) {
 	$id = $row['id'];
 	$sql = "ALTER TABLE ".PPHL_DB_PREFIX.$id.$tbl_logs." "
 		 . "CHANGE res res VARCHAR(9)";
@@ -34,7 +34,7 @@ while ($row = mysql_fetch_array($res)) {
 	     . "WHERE LOCATE('x',res) = 0 AND res > '0'";
 	$res2 = mysql_qry($sql);
 	flush();
-	while ($row2 = mysql_fetch_array($res2)) {
+	while ($row2 = mysqli_fetch_array($res2)) {
 		$new_res = full_screenres($row2['res']);
 		if ($new_res != '') {
 			$agt_sql = "UPDATE ".PPHL_DB_PREFIX.$id.$tbl_logs." "

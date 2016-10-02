@@ -17,7 +17,7 @@ include PPHL_SCRIPT_PATH."libraries/load_sql.lib.".$phpExt;
 
 // WARNING
 $sql = "SELECT COUNT(*) FROM ".PPHL_DB_PREFIX_OLD."pphlogger_settings";
-$res = mysql_query($sql);
+$res = mysqli_query($connected,$sql);
 if ($res) {
 	echo '<b>WARNING</b>: Please first read the upgrade instructions on ';
 	echo '<a href="http://www.phpee.com/upgrade.php">http://www.phpee.com/upgrade.php</a>';
@@ -26,10 +26,10 @@ if ($res) {
 }
 
 $sql = "SELECT COUNT(*) FROM ".PPHL_DB_PREFIX."settings";
-$res = mysql_query($sql);
+$res = mysqli_query($connected,$sql);
 if (!$res) exec_sql_lines(PPHL_SCRIPT_PATH."mysql/pphl_settings.sql", 'pphl_settings', PPHL_DB_PREFIX.'settings');
 $sql = "SELECT COUNT(*) FROM ".PPHL_DB_PREFIX."css";
-$res = mysql_query($sql);
+$res = mysqli_query($connected,$sql);
 if (!$res) exec_sql_lines(PPHL_SCRIPT_PATH."mysql/pphl_css.sql", 'pphl_css', PPHL_DB_PREFIX.'css');
 /* --------------------------------------------------------------------- */
 
@@ -48,7 +48,7 @@ if (isset($fields_no)) {
 	for ($i = 0; $i < $cnt_fields_no; $i++) {
 		if ($fields[$fields_no[$i]] != $fields_prev[$fields_no[$i]]) {
 			$sql = "UPDATE ".PPHL_TBL_SETTINGS." SET value = '".$fields[$fields_no[$i]]."' WHERE setting = '".$fields_no[$i]."'";
-			mysql_query($sql);
+			mysqli_query($connected,$sql);
 		}
 	}
 }

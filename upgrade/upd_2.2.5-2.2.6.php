@@ -43,14 +43,14 @@ if (defined('UPD_CGI')) {
  * create logfile
  */
 if (isset($logs_outp)) {
-	$outp_file = CFG_LOG_PATH.'223_'.(date('YmdHis')).'.html';
+	$outp_file = CFG_LOG_PATH.'226_'.(date('YmdHis')).'.html';
 	$outp_fp = fopen($outp_file, 'w');
 }
 
 /*
  * calculating total execution time
  */
-$upd223_start = getmicrotime();
+$upd226_start = getmicrotime();
 
 
 /*
@@ -82,21 +82,21 @@ while ($row = mysqli_fetch_array($res)) {
 /*
  * change traceroute URL to getnet.com
  */
-$sql = "UPDATE ".PPHL_TBL_SETTINGS." SET value = 'http://www.getnet.com/cgi-bin/trace?' "
+$sql = "UPDATE ".PPHL_TBL_SETTINGS." SET value = 'http://www.traceip.net/?query=' "
      . "WHERE setting = 'traceroute' AND value = 'http://www.above.net/cgi-bin/trace?'";
 mysql_qry($sql);
 
 /*
  * add new settings
  */
-$sql = "INSERT INTO ".PPHL_TBL_SETTINGS." (setting, value, type) VALUES ('dellog_lim_prob', '30', 'int')";
-mysql_qry($sql);
-$sql = "INSERT INTO ".PPHL_TBL_SETTINGS." (setting, value, type) VALUES ('delpath_lim_prob', '20', 'int')";
-mysql_qry($sql);
+//$sql = "INSERT INTO ".PPHL_TBL_SETTINGS." (setting, value, type) VALUES ('dellog_lim_prob', '30', 'int')";
+//mysql_qry($sql);
+//$sql = "INSERT INTO ".PPHL_TBL_SETTINGS." (setting, value, type) VALUES ('delpath_lim_prob', '20', 'int')";
+//mysql_qry($sql);
 
 // fixed type of mail_mod
-$sql = "UPDATE ".PPHL_TBL_SETTINGS." SET type = 'mta' WHERE setting = 'mail_mod'";
-mysql_qry($sql);
+//$sql = "UPDATE ".PPHL_TBL_SETTINGS." SET type = 'mta' WHERE setting = 'mail_mod'";
+//mysql_qry($sql);
 
 /*
  * set current version string
@@ -105,10 +105,10 @@ mysql_qry($sql);
  * 2.2.2a --> 2221
  * 2.2.3  --> 2230
  */
-$sql = "UPDATE ".PPHL_TBL_CACHE." SET cache = '2230' WHERE type = 'curr_ver'";
+$sql = "UPDATE ".PPHL_TBL_CACHE." SET cache = '2260' WHERE type = 'curr_ver'";
 mysql_qry($sql, FALSE);
 
 
-pphl_outp('[ total execution time: '.(getmicrotime()-$upd223_start).' seconds]', TRUE);
-pphl_outp($br.$br."<b>Your upgrade to v.2.2.3 was successful!</b>", TRUE);
+pphl_outp('[ total execution time: '.(getmicrotime()-$upd226_start).' seconds]', TRUE);
+pphl_outp($br.$br."<b>Your upgrade to v.2.2.6 was successful!</b>", TRUE);
 ?>

@@ -74,7 +74,12 @@ if (!$url) { // "real" URL was not found in the URL-list
     $url_error = (!$url) ? true : false; // no error if the redir-URL was found in the list
 } else {
     $url_error = false; // no dumb user, everything correct! :)
+    // if referal is to long ot fit in the database, make the referal shorter
+    if (strlen($referer) > 510 ){$referer=substr($referer,0,510);}
 }
+
+
+
 
 /*
  * Make sure we need to log the visitor...
@@ -119,7 +124,7 @@ if ( !isset($$cookie_phloff) &&  // cookie-switch off?
 	 */
 	if (isset($jslogid) && $st == 'js') {
 		$sql = "UPDATE $tbl_logs SET res_w = $res_w, res_h = $res_h, color = $c WHERE logid = $jslogid";
-		$res = mysql_query($sql);
+		$res = mysqli_query($connected,$sql);
 		mpdl_setTitle ($url, $title);
 		setcookie($cookie_same, $jslogid, time()+$timeout);
 		// nothing else needs to be done here
@@ -148,7 +153,7 @@ if ( !isset($$cookie_phloff) &&  // cookie-switch off?
 		$sql = "UPDATE $tbl_logs SET t_reload = $curr_gmt_time, online = $curr_gmt_time - time, mp = mp+1";
 		if($newpath) $sql .= ", path='$newpath'"; // only update the path if it has changed
 		$sql .= " WHERE logid = $logid";
-		$res = mysql_query($sql);
+		$res = mysqli_query($connected,$sql);
 		// DO NOT SET COOKIE if called by st='phpjs' - cookie will be set in following st='js'
 		if($st != 'phpjs') setcookie($cookie_same, $logid, time()+$timeout);
 		
@@ -162,7 +167,7 @@ if ( !isset($$cookie_phloff) &&  // cookie-switch off?
 		$sql = "UPDATE ".PPHL_TBL_USERS." SET hits = hits+1,"
 		     . "last_access = $curr_gmt_time "
 		     . "WHERE id = $id";
-		$res = mysql_query($sql);
+		$res = mysqli_query($connected,$sql);
 		$hits += 1;
 		
 		/*
@@ -212,12 +217,12 @@ if ( !isset($$cookie_phloff) &&  // cookie-switch off?
 		     . "(hostname,tld,ip,entryid,path,referer,seareng,agentid,res_w,res_h,color,time,t_reload,proxy,proxy_ip,proxy_hostname) "
 		     . "VALUES ('$hostname','$tld','$ip',$entryid,$entryid,'$referer','$seareng',$agentid,$res_w,$res_h,$c,$curr_gmt_time,$curr_gmt_time,"
 		     . "'$proxy','$proxy_ip','$proxy_hostname')";
-		$res = mysql_query($sql);
-		$logid = mysql_insert_id();
+		$res = mysqli_query($connected,$sql);
+		$logid = mysqli_insert_id($connected);
 		
 		/* DEBUG !!! - send email to administrator*/
-		if(mysql_error()) { // if there was an error in the above mysql-statement, mail it to the admin
-			$err_msg = mysql_errno().": ".mysql_error();
+		if(mysqli_error($connected)) { // if there was an error in the above mysql-statement, mail it to the admin
+			$err_msg = mysqli_errno($connected).": ".mysqli_error($connected);
 			$err_time = date("M d, h:i:s A");
 			mail($admin_mail, "mysql error - ".$username, $sql.CRLF.CRLF.CRLF.$err_msg.CRLF.CRLF.$err_time, getMailheader($admin_mail));
 		}

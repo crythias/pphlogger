@@ -26,8 +26,8 @@ if (!defined('PPHLOGGER_BUILDDATE')) {
 
 // php version
 if (!defined('PHP_INT_VERSION')) {
-    if (!ereg('([0-9]{1,2}).([0-9]{1,2}).([0-9]{1,2})', phpversion(), $match)) {
-        $result = ereg('([0-9]{1,2}).([0-9]{1,2})', phpversion(), $match);
+    if (!preg_match('/([0-9]{1,2}).([0-9]{1,2}).([0-9]{1,2})/', phpversion(), $match)) {
+        $result = preg_match('/([0-9]{1,2}).([0-9]{1,2})/', phpversion(), $match);
     }
     if (isset($match) && !empty($match[1])) {
         if (!isset($match[2])) {
@@ -50,7 +50,7 @@ if (!defined('PHP_SESS')) {
 
 // Whether the os php is running on is windows or not
 if (!defined('IS_WINDOWS')) {
-    if (defined('PHP_OS') && eregi('win', PHP_OS)) {
+    if (defined('PHP_OS') &&  preg_match('/win/i', PHP_OS)) {
         define('IS_WINDOWS', 1);
     } else {
         define('IS_WINDOWS', 0);
@@ -60,14 +60,14 @@ if (!defined('IS_WINDOWS')) {
 // MySQL Version
 if (!defined('MYSQL_MAJOR_VERSION')) {
 	
-	$result = mysql_query('SELECT VERSION() AS version');
-	if ($result != FALSE && @mysql_num_rows($result) > 0) {
-		$row   = mysql_fetch_array($result);
+	$result = mysqli_query($connected,'SELECT VERSION() AS version');
+	if ($result != FALSE && @mysqli_num_rows($result) > 0) {
+		$row   = mysqli_fetch_array($result);
 		$match = explode('.', $row['version']);
 	} else {
-		$result = @mysql_query('SHOW VARIABLES LIKE \'version\'');
-		if ($result != FALSE && @mysql_num_rows($result) > 0){
-			$row   = mysql_fetch_row($result);
+		$result = @mysqli_query($connected,'SHOW VARIABLES LIKE \'version\'');
+		if ($result != FALSE && @mysqli_num_rows($result) > 0){
+			$row   = mysqli_fetch_row($result);
 			$match = explode('.', $row[1]);
 		}
 	}
@@ -91,8 +91,8 @@ if (!defined('MYSQL_MAJOR_VERSION')) {
 // Based on a phpBuilder article:
 //   see http://www.phpbuilder.net/columns/tim20000821.php
 if (!defined('USR_OS') && !defined('UPD_CGI')) {
-    if (!empty($HTTP_SERVER_VARS['HTTP_USER_AGENT'])) {
-        $HTTP_USER_AGENT = $HTTP_SERVER_VARS['HTTP_USER_AGENT'];
+    if (!empty($_SERVER['HTTP_USER_AGENT'])) {
+        $HTTP_USER_AGENT = $_SERVER['HTTP_USER_AGENT'];
     }
     // 1. Platform
     if (strstr($HTTP_USER_AGENT, 'Win')) {
@@ -107,16 +107,16 @@ if (!defined('USR_OS') && !defined('UPD_CGI')) {
         define('USR_OS', 'Other');
     }
     // 2. browser and version
-    if (ereg('MSIE ([0-9].[0-9]{1,2})', $HTTP_USER_AGENT, $log_version)) {
+    if (preg_match('/MSIE ([0-9].[0-9]{1,2})/', $HTTP_USER_AGENT, $log_version)) {
         define('USR_BROWSER_VER', $log_version[1]);
         define('USR_BROWSER_AGENT', 'IE');
-    } else if (ereg('Opera(/| )([0-9].[0-9]{1,2})', $HTTP_USER_AGENT, $log_version)) {
+    } else if (preg_match('/Opera(\/| )([0-9].[0-9]{1,2})/', $HTTP_USER_AGENT, $log_version)) {
         define('USR_BROWSER_VER', $log_version[2]);
         define('USR_BROWSER_AGENT', 'OPERA');
-    } else if (ereg('Mozilla/([0-9].[0-9]{1,2})', $HTTP_USER_AGENT, $log_version)) {
+    } else if (preg_match('/Mozilla\/([0-9].[0-9]{1,2})/', $HTTP_USER_AGENT, $log_version)) {
         define('USR_BROWSER_VER', $log_version[1]);
         define('USR_BROWSER_AGENT', 'MOZILLA');
-    } else if (ereg('Konqueror/([0-9].[0-9]{1,2})', $HTTP_USER_AGENT, $log_version)) {
+    } else if (preg_match('/Konqueror\/([0-9].[0-9]{1,2})/', $HTTP_USER_AGENT, $log_version)) {
         define('USR_BROWSER_VER', $log_version[1]);
         define('USR_BROWSER_AGENT', 'KONQUEROR');
     } else {
@@ -147,12 +147,12 @@ if(defined('USR_OS') && USR_OS == 'Win') {
 if (!empty($_SERVER))
 	$SERVER_SOFTWARE = @$_SERVER['SERVER_SOFTWARE'];
 else if (!empty($HTTP_SERVER_VARS))
-	$SERVER_SOFTWARE = @$HTTP_SERVER_VARS['SERVER_SOFTWARE'];
+	$SERVER_SOFTWARE = @$_SERVER['SERVER_SOFTWARE'];
 
-if (eregi("(Microsoft-IIS)/([0-9]{1,2}.[0-9]{1,3})",$SERVER_SOFTWARE,$http_srv)) {
+if (preg_match("/(Microsoft-IIS)\/([0-9]{1,2}.[0-9]{1,3})/i",$SERVER_SOFTWARE,$http_srv)) {
 	define('HTTP_SRV'   , 'IIS');
 	define('HTTP_SRV_V' , $http_srv[2]);
-} else if (eregi("(Apache)/([0-9]{1,2}.[0-9]{1,2}.[0-9]{1,2})",$SERVER_SOFTWARE,$http_srv)) {
+} else if (preg_match("/(Apache)\/([0-9]{1,2}.[0-9]{1,2}.[0-9]{1,2})/i",$SERVER_SOFTWARE,$http_srv)) {
 	define('HTTP_SRV'   , 'APACHE');
 	define('HTTP_SRV_V' , $http_srv[2]);
 } else {

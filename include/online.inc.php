@@ -6,8 +6,8 @@
 			. "FROM ".$tbl_logs." "
 			. $ip_onl_sql." "
 			. "ORDER BY t_reload DESC";
-	$ip_res = mysql_query($ip_sql);
-	while ($row = @mysql_fetch_array($ip_res)) {
+	$ip_res = mysqli_query($connected,$ip_sql);
+	while ($row = @mysqli_fetch_array($ip_res)) {
 			$hostname = $row['hostname'];
 			if ($hostname == '') $hostname = $row['ip'];
 			if ($row['diff'] < $timeout_onl) echo "<tr class=\"ref\">";

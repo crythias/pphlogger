@@ -17,7 +17,7 @@ switch (@$action) {
 		
 		/* edit a stylesheet */
 		$sql = "SELECT * FROM ".PPHL_TBL_CSS." WHERE id = $css_str";
-		$res = mysql_query($sql);
+		$res = mysqli_query($connected,$sql);
 		
 		echo "<table border=\"0\" align=\"center\" cellpadding=\"3\"><tr>\n";
 		echo "<th class=\"invertLink\">color</th>\n";
@@ -32,7 +32,7 @@ switch (@$action) {
 		echo "<input type=\"hidden\" name=\"fields_prev[id]\" value=\"$css_str\" />\n";
 		echo "<input type=\"hidden\" name=\"fields[id]\" value=\"$css_str\" />\n";
 		echo "</tr>";
-		while ($row = @mysql_fetch_array($res)) {
+		while ($row = @mysqli_fetch_array($res)) {
 			$css_uid = $row['userid'];
 			$cnt_css_fields = count($css_fields);
 			for ($i = 0; $i < $cnt_css_fields; $i++) {
@@ -69,10 +69,10 @@ switch (@$action) {
 	case 'delete':
 		$sql = "DELETE FROM ".PPHL_TBL_CSS." WHERE id = $css_str";
 		if (defined('__GOT_USERDATA__')) $sql .= " AND userid = $id";
-		$res = @mysql_query($sql);
-		if (@mysql_num_rows($res)) {
+		$res = @mysqli_query($connected,$sql);
+		if (@mysqli_num_rows($connected,$res)) {
 			$sql = "UPDATE ".PPHL_TBL_USERS." SET cssid = 7 WHERE cssid = $css_str";
-			mysql_query($sql);
+			mysqli_query($connected,$sql);
 		}
 		Header("Location: $PHP_SELF");
 		exit;
@@ -91,7 +91,7 @@ switch (@$action) {
 		if (@$updval) {
 			$sql = "UPDATE ".PPHL_TBL_CSS." SET ".$sql_values." WHERE id = ".$fields_prev['id'];
 			if (defined('__GOT_USERDATA__')) $sql .= " AND userid = ".$id;
-			$res = mysql_query($sql);
+			$res = mysqli_query($connected,$sql);
 		}
 		Header("Location: $PHP_SELF");
 		exit;
@@ -106,7 +106,7 @@ switch (@$action) {
 			$sql_values .= $comma."'".$fields[$css_fields[$i]]."'";
 		}
 		$sql = "INSERT INTO ".PPHL_TBL_CSS." (".$sql_fields.") VALUES (".$sql_values.")";
-		$res = mysql_query($sql);
+		$res = mysqli_query($connected,$sql);
 		Header("Location: $PHP_SELF");
 		exit;
 	break;
@@ -117,7 +117,7 @@ switch (@$action) {
 		$sql = "SELECT id,css,userid,".$css_show." FROM ".PPHL_TBL_CSS;
 		if (defined('__GOT_USERDATA__')) $sql .= " WHERE userid = $id OR userid = 0";
 		$sql .= " ORDER BY userid ASC, css ASC";
-		$res = mysql_query($sql);
+		$res = mysqli_query($connected,$sql);
 		
 		echo "<p>&nbsp;</p>";
 		echo "<table class=\"box-table\" border=\"0\" align=\"center\" cellpadding=\"3\"><tr>\n";
@@ -132,7 +132,7 @@ switch (@$action) {
 		echo "<th class=\"color3\">&nbsp;</th>\n";
 		echo "<th class=\"color3\">&nbsp;</th>\n";
 		echo "</tr>";
-		while ($row = @mysql_fetch_array($res)) {
+		while ($row = @mysqli_fetch_array($connected,$res)) {
 			if ($rowcnt%2) $bgcolor = "ref";
 			else $bgcolor = "color2";
 			echo "<tr>";

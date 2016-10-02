@@ -34,10 +34,10 @@ if ($N_kwspl != $kwspl) {
 	$arr_engines = load_engines();
 	//scan through the log-table and extract keywords
 	$sql_del = "DELETE FROM ".$tbl_mpdl." WHERE type = 'kw'";
-	$res_del = mysql_query($sql_del);
+	$res_del = mysqli_query($connected,$sql_del);
 	$sql_keyw = "SELECT referer FROM ".$tbl_logs." WHERE referer LIKE '%?%'";
-	$res_keyw = mysql_query($sql_keyw);
-	while ($row_keyw = mysql_fetch_array($res_keyw)) {
+	$res_keyw = mysqli_query($connected,$sql_keyw);
+	while ($row_keyw = mysqli_fetch_array($res_keyw)) {
 		$keywrd = show_keywords($row_keyw['referer'], $arr_engines);
 		if ($keywrd[3]) insert_keyw($keywrd[3]);
 	}
@@ -50,7 +50,7 @@ $sql = "UPDATE ".PPHL_TBL_USERS." SET email = '".$N_email."', visible = ".$N_vis
 	 . "bg_c = '".$N_bg_c."', fg_c = '".$N_fg_c."', bg_trans = ".$N_bg_trans.", cssid = ".$N_css.", gmt = '".$N_gmt."', "
 	 . "lang = '".$N_lang."', limh = '".$N_limh."', limh_p = '".$N_limh_p."', limd = '".$N_limd."', limd_p = '".$N_limd_p."', hits = '".$N_hits."', kwspl = ".$N_kwspl." "
      . "WHERE id = ".$id;
-$res = mysql_query($sql);
+$res = mysqli_query($connected,$sql);
 
 Header("Location: $adm_view[2]");
 exit;

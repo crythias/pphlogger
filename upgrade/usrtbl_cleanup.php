@@ -22,9 +22,9 @@ $cnt_orphans = 0;
 
 if ($usrIDs) {
 	$sql = "SHOW TABLES LIKE '%_____\_logs'";
-	$res = mysql_query($sql);
-	while ($row = @mysql_fetch_array($res)) {
-		if(eregi("([0-9]{5})",$row[0],$id_arr)) {
+	$res = mysqli_query($connected,$sql);
+	while ($row = @mysqli_fetch_array($res)) {
+		if(preg_match("/([0-9]{5})/i",$row[0],$id_arr)) {
 			$id = $id_arr[0];
 			if (!isInArray($id,$usrIDs)) {
 				$sql = "DROP TABLE IF EXISTS ".PPHL_DB_PREFIX.$id.$tbl_logs.", ".PPHL_DB_PREFIX.$id.$tbl_mpdl.", ".PPHL_DB_PREFIX.$id.$tbl_ipcheck;

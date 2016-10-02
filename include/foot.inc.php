@@ -6,7 +6,7 @@
     headfoot.inc.php contains the main site-structure
     --------------------------------------------------------- */
 
-@mysql_close();
+@mysqli_close();
 
 if(!defined('NO_HEADFOOT')) { ?>
 	<p>&nbsp;</p>

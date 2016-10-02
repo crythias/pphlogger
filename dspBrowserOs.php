@@ -14,8 +14,8 @@ include INC_HEAD;
 
 /* total amount of logs that got a search-string */
 $sql = "SELECT count(*) FROM ".$tbl_logs." WHERE seareng > ''";
-$res = mysql_query($sql);
-$seartotal = @mysql_result($res,0);
+$res = mysqli_query($connected,$sql);
+$seartotal = @mysqli_result($res,0);
 
 
 
@@ -51,9 +51,9 @@ $sql = "SELECT browser,version,system,count(id) as hits FROM $tbl_logs AS L, ".P
      . "WHERE agentid = A.id ";
 if(isset($sql_fromto)) $sql .= "AND ".$sql_fromto;
 $sql .= "GROUP BY browser,version,system ORDER BY hits DESC LIMIT ".$topbrowseros_lim;
-$res = mysql_query($sql);
+$res = mysqli_query($connected,$sql);
 $i = 3;
-while ($row = @mysql_fetch_array($res)) {
+while ($row = @mysqli_fetch_array($res)) {
 	$browsstr = ($row[0] == '') ? '['.$strUndefined.']' : $row[0].' '.formatBrowsver($row[1]).'; '.$row[2];
 	$ArrBrowsOs[$i][0] = '<a>'.$browsstr.'</a>';
 	$ArrBrowsOs[$i][1] = $row[3];
@@ -83,9 +83,9 @@ $sql = "SELECT browser, count(browser) as hits FROM $tbl_logs AS L, ".PPHL_TBL_A
      . "WHERE agentid = A.id AND browser > '' ";
 if(isset($sql_fromto)) $sql .= "AND ".$sql_fromto;
 $sql .= "GROUP BY browser ORDER BY hits DESC";
-$res = mysql_query($sql);
+$res = mysqli_query($connected,$sql);
 $i = 3;
-while ($row = @mysql_fetch_array($res)) {
+while ($row = @mysqli_fetch_array($res)) {
 	$browser_full = (isset($arr_brows[$row[0]])) ? $arr_brows[$row[0]] : $row[0];
 	$ArrBrows[$i][0] = '<a>'.$browser_full.'</a>';
 	$ArrBrows[$i][1] = $row[1];
@@ -114,9 +114,9 @@ $sql = "SELECT system, count(system) as hits FROM $tbl_logs AS L, ".PPHL_TBL_AGE
      . "WHERE agentid = A.id AND system > '' ";
 if(isset($sql_fromto)) $sql .= "AND ".$sql_fromto;
 $sql .= "GROUP BY system ORDER BY hits DESC";
-$res = mysql_query($sql);
+$res = mysqli_query($connected,$sql);
 $i = 3;
-while ($row = @mysql_fetch_array($res)) {
+while ($row = @mysqli_fetch_array($res)) {
 	$system_full = (isset($arr_sys[$row[0]])) ? $arr_sys[$row[0]] : $row[0];
 	$ArrOs[$i][0] = '<a>'.$system_full.'</a>';
 	$ArrOs[$i][1] = $row[1];
@@ -145,9 +145,9 @@ $sql = "SELECT seareng,count(seareng) as hits FROM ".$tbl_logs." "
      . "WHERE seareng > '' ";
 if(isset($sql_fromto)) $sql .= "AND ".$sql_fromto;
 $sql .= "GROUP BY seareng ORDER BY hits DESC LIMIT ".$topsearcheng_lim;
-$res = mysql_query($sql);
+$res = mysqli_query($connected,$sql);
 $i = 3;
-while ($row = @mysql_fetch_array($res)) {
+while ($row = @mysqli_fetch_array($res)) {
 	$ArrSeareng[$i][0] = '<a>'.$row[0].'</a>';
 	$ArrSeareng[$i][1] = $row[1];
 	$ArrSeareng[$i][2] = '';

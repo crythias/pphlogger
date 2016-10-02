@@ -22,11 +22,11 @@ if (isset($enable_del) && !$guest) {
 		}
 		$qry_in .= ')';
 		$sql = "DELETE FROM ".$tbl_logs." WHERE logid IN $qry_in";
-		$res = mysql_query($sql);
-		$affected_rows = mysql_affected_rows();
+		$res = mysqli_query($connected,$sql);
+		$affected_rows = mysqli_affected_rows($connected);
 		if ($affected_rows) {
 			$sql = "UPDATE ".PPHL_TBL_USERS." SET hits = hits-$affected_rows WHERE id = $id";
-			$res = mysql_query($sql);
+			$res = mysqli_query($connected,$sql);
 			$hits = $hits-$affected_rows;
 		}
 	}
@@ -39,13 +39,13 @@ include INC_HEAD;
 /* confirm account when user logs in the first time: */
 if (!$conf && !isset($admin_rulez)) {
 	$sql = "UPDATE ".PPHL_TBL_USERS." SET conf = 1 WHERE id = $id";
-	$res = mysql_query($sql);
+	$res = mysqli_query($connected,$sql);
 }
 
 /* update last_access: */
 if (!isset($admin_rulez) || $admin) {
 	$sql = "UPDATE ".PPHL_TBL_USERS." SET last_access = $curr_gmt_time WHERE id = $id";
-	$res = mysql_query($sql);
+	$res = mysqli_query($connected,$sql);
 }
 
 /* total amount of logs in users table */
@@ -59,7 +59,7 @@ $mpArr = getMpArr();
 
 /* delete old logs */
 include INC_DELLOGS;
-$LOGSCLEANUP = new LogsCleanUp();
+$LOGSCLEANUP = new LogsCleanUp($connected);
 $LOGSCLEANUP->execute();
 ?>
 
@@ -159,7 +159,7 @@ $to_d = date('d',$to_date);
 		$sql .= (isset($offset)) ? "LIMIT ".$offset.",".$loglim : "LIMIT ".$loglim;
 	}
 	
-	$res = mysql_query($sql);
+	$res = mysqli_query($connected,$sql);
 	// show the whole log-list:
 	include INC_LOGLIST;
 
@@ -211,14 +211,14 @@ $to_d = date('d',$to_date);
   
 <?php
 	$sql = "SELECT TIME_FORMAT(SEC_TO_TIME(AVG(online)),'%k:%i:%s'), ROUND(AVG(mp),2) FROM ".$tbl_logs;
-	$res = mysql_query($sql);
-	$online_avg = mysql_result($res,0,0);
-	$mp_avg = mysql_result($res,0,1);
+	$res = mysqli_query($connected,$sql);
+	$online_avg = mysqli_result($res,0,0);
+	$mp_avg = mysqli_result($res,0,1);
 	
 	$sql = "SELECT TIME_FORMAT(SEC_TO_TIME(AVG(online)),'%k:%i:%s'), ROUND(AVG(mp),2) FROM ".$tbl_logs." WHERE time > ($curr_gmt_time-(30*24*60*30))";
-	$res = mysql_query($sql);
-	$online_mo = mysql_result($res,0,0);
-	$mp_mo = mysql_result($res,0,1);
+	$res = mysqli_query($connected,$sql);
+	$online_mo = mysqli_result($res,0,0);
+	$mp_mo = mysqli_result($res,0,1);
 ?>
 
   <table cellpadding="3" cellspacing="0" class="color2" border="0" align="center">
@@ -248,8 +248,8 @@ $to_d = date('d',$to_date);
 <tr>
 <?php
 	$sql = "SELECT count(*) FROM $tbl_mpdl WHERE type='mp' AND enabled";
-	$res = mysql_query($sql);
-	$mp_cnt = mysql_result($res,0,0);
+	$res = mysqli_query($connected,$sql);
+	$mp_cnt = mysqli_result($res,0,0);
 	$num = ($mp_cnt > $mpfront_lim) ? $mpfront_lim : $mp_cnt;
 	
 	if (!is_int($num/3)) $num_per_col = ceil($num/3);

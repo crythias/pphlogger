@@ -22,14 +22,14 @@ $username = str_replace (" ", "_", trim($username));
  * - length must be 30 characters or less
  * - username has to contain at least one character Aa-Zz
  */
-if (!ereg("^[A-Za-z0-9_.-]{1,30}$",$username) || !ereg("[A-Za-z]",$username)) {
+if (!preg_match("/^[A-Za-z0-9_.-]{1,30}$/",$username) || !preg_match("/[A-Za-z]/",$username)) {
 	Header("Location: $returnURL?msg=badusername");
 	exit;
 }
 
 /* check if username doesn't exist yet */
-$res = mysql_query("SELECT username FROM ".PPHL_TBL_USERS." WHERE username = '".$username."'");
-if (!@mysql_num_rows($res)) {
+$res = mysqli_query($connected,"SELECT username FROM ".PPHL_TBL_USERS." WHERE username = '".$username."'");
+if (!@mysqli_num_rows($res)) {
 	
 	if (!email_is_valid($email)) {
 		Header("Location: $returnURL?msg=novalidemail");
@@ -47,7 +47,7 @@ if (!@mysql_num_rows($res)) {
 	/* this will insert a new user into your user-table, setting the starting date to the admin's timezone */
 	$sql = "INSERT INTO ".PPHL_TBL_USERS." (id,username,pw,admin,demo,email,date_start,last_access,your_url,gmt,lang,conf) "
 	     . "VALUES ($id,'$username','$pw',$admin,$demo,'$email',$curr_gmt_time,$curr_gmt_time,'$N_your_url','$N_gmt','$N_lang',$conf)";
-	$res = mysql_query($sql);
+	$res = mysqli_query($connected,$sql);
 	
 	
 	if (!$res) {

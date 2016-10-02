@@ -25,8 +25,8 @@ include INC_HEAD;
 
 /* number of useraccounts */
 $sql = "SELECT count(*) FROM ".PPHL_TBL_USERS;
-$res = mysql_query($sql);
-$useraccounts = @mysql_result($res,0,0);
+$res = mysqli_query($connected,$sql);
+$useraccounts = @mysqli_result($res,0,0);
 
 
 
@@ -40,17 +40,17 @@ $useraccounts = @mysql_result($res,0,0);
 $traffic_minutes = 10;
 $traffic = 0;
 $sql = "SELECT id FROM ".PPHL_TBL_USERS;
-$res = mysql_query($sql);
-while ($row = mysql_fetch_array($res)) {
+$res = mysqli_query($connected,$sql);
+while ($row = mysqli_fetch_array($res)) {
 	$id = $row['id'];
 	$sql2 = "SELECT sum(mp) as traffic FROM ".PPHL_DB_PREFIX.$id.$tbl_logs." "
 	      . "WHERE time > SUBDATE(NOW(), INTERVAL $traffic_minutes MINUTE)";
-	$res2 = mysql_query($sql2);
-	$traffic += @mysql_result($res2,0,'traffic');
+	$res2 = mysqli_query($connected,$sql2);
+	$traffic += @mysqli_result($res2,0,'traffic');
 	$sql2 = "SELECT sum(mp) as traffic FROM ".PPHL_DB_PREFIX.$id.$tbl_ipcheck;
-	$res2 = mysql_query($sql2);
-//	echo "traffic2=".@mysql_result($res2,0,'traffic').'<br />';
-	$traffic += @mysql_result($res2,0,'traffic');
+	$res2 = mysqli_query($connected,$sql2);
+//	echo "traffic2=".@mysqli_result($res2,0,'traffic').'<br />';
+	$traffic += @mysqli_result($res2,0,'traffic');
 }
 */
 
@@ -92,8 +92,8 @@ $total_adm_tblsize = getSerializedCache('admin_tblsize');
 $total_adm_tblsize = @$total_adm_tblsize[1];
 
 $sql = "SELECT sum(tblsize) FROM ".PPHL_TBL_USERS;
-$res = mysql_query($sql);
-$total_usr_tblsize = mysql_result($res,0,0);
+$res = mysqli_query($connected,$sql);
+$total_usr_tblsize = mysqli_result($res,0,0);
 echo $strUser.' '.$strDatabase.' '.$strSize.': <b>'.formatPrettyByte($total_usr_tblsize).'</b><br />';
 echo $strAdmin.' '.$strDatabase.' '.$strSize.': <b>'.formatPrettyByte($total_adm_tblsize).'</b>';
 ?>

@@ -1,3 +1,9 @@
+# pphlogger configuration
+config.inc.php
+# admin access+passwd file
+admin/.htpasswd
+admin/.htaccess
+
 #################
 ## Eclipse
 #################
